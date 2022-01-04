@@ -1,4 +1,5 @@
 import DNCMemory from "./DNCMemory.js"
+import DNCNumber from "../types/DNCNumber.js"
 
 export default class CbmObject {
     loadAddress
@@ -7,18 +8,19 @@ export default class CbmObject {
 
     constructor() {
         this.loadAddress=-1
-        this.pc=4096
+        this.pc=DNCNumber.parse(4096)
         this.memory=new DNCMemory()
     }
 
     setPc(pc) {
+        console.log("setting pc to",pc)
         this.pc=pc
     }
 
     add(value) {
         if(value.val<0) value.val+=256
-        this.memory.poke(this.pc,value)
-        this.pc++
+        this.memory.poke(this.pc.val, value)
+        this.pc.val++
     }
 
     getObject() {

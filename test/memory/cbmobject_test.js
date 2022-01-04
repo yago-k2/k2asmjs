@@ -5,7 +5,7 @@ import DNCNumber from "../../src/types/DNCNumber.js"
 describe("cbmobject",()=>{
     it("test",()=>{
         let c=new CbmObject()
-        c.setPc(49152)
+        c.setPc(DNCNumber.parse(49152))
         c.add(DNCNumber.parse(1))
         c.add(DNCNumber.parse(2))
         let actual=c.getObject()
