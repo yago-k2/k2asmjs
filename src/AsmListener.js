@@ -2,22 +2,41 @@ import K2Asm6502ParserListener from "./grammar/K2Asm6502ParserListener.js"
 import DNCNumber from "./types/DNCNumber.js"
 
 export default class AsmListener extends K2Asm6502ParserListener {
-    #result
     #currentValue
     valueStack=[]
+    cbmobject
 
-    getResult() { return this.#result}
+    constructor(cbmobject) {
+        super()
+        this.cbmobject=cbmobject
+    }
 
+    exitBin(ctx) {
+        this.#currentValue=DNCNumber.parse(ctx.BIN().getText())
+    }
     exitDec(ctx) {
         this.#currentValue=DNCNumber.parse(ctx.DEC().getText())
     }
-
+    exitHex(ctx) {
+        this.#currentValue=DNCNumber.parse(ctx.HEX().getText())
+    }
     exitNumber(ctx) {
         this.valueStack.push(this.#currentValue)        
     }
 
 
     exitByte(ctx) {
-        console.log("we have",this.valueStack.length,"values")
+        this.valueStack.forEach( v=> this.cbmobject.add(v))
+        this.valueStack=[]
+    }
+
+    exitOrg(ctx) {
+        let la=new DNCNumber(-1)
+        if(this.valueStack.length==2) {
+            la=this.valueStack.pop()
+            //adjust emitter
+        }
+        let pc=this.valueStack.pop()
+        //adjust emitter
     }
 }
