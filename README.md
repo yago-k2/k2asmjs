@@ -1,2 +1,2 @@
-# k2asm.j2
+# k2asm.js
 
