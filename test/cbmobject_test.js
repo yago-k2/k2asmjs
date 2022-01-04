@@ -1,14 +1,14 @@
 import assert from "assert"
 import CbmObject from "../src/memory/CbmObject.js"
+import DNCNumber from "../src/types/DNCNumber.js"
 
 describe("cbmobject",()=>{
     it("test",()=>{
         let c=new CbmObject()
         c.setPc(49152)
-        c.add(1)
-        c.add(2)
+        c.add(DNCNumber.parse(1))
+        c.add(DNCNumber.parse(2))
         let actual=c.getObject()
-        assert.equal(actual[0],0)
-        assert.equal(actual[1],192)
+        assert.deepEqual(actual,[0,192,1,2])
     })
 })
