@@ -31,12 +31,13 @@ export default class AsmListener extends K2Asm6502ParserListener {
     }
 
     exitOrg(ctx) {
-        let la=new DNCNumber(-1)
+        let la=new DNCNumber(16,-1)
         if(this.valueStack.length==2) {
             la=this.valueStack.pop()
-            //adjust emitter
+            this.cbmobject.setPc(la) //adjust emitter
         }
         let pc=this.valueStack.pop()
-        //adjust emitter
+        this.cbmobject.setPc(pc) //adjust emitter
+
     }
 }
