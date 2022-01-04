@@ -1,1 +1,4 @@
 node_modules
+dist/main.js
+package-lock.json
+tools/antlr-4.9.3-complete.jar
