@@ -5,6 +5,7 @@ export default class DNCNumber {
     bits
     val
     dnc
+    
     constructor(...args) {
         if (args.length < 2) throw Error("implement me")
         this.bits = args[0]

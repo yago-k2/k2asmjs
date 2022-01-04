@@ -1,6 +1,6 @@
 import assert from "assert"
-import DNCMemory from "../src/memory/DNCMemory.js"
-import DNCNumber from "../src/types/DNCNumber.js"
+import DNCMemory from "../../src/memory/DNCMemory.js"
+import DNCNumber from "../../src/types/DNCNumber.js"
 
 describe("dncmemory", () => {
     describe("usual stuff", () => {

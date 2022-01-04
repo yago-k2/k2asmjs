@@ -1,6 +1,6 @@
 import assert from "assert"
-import CbmObject from "../src/memory/CbmObject.js"
-import DNCNumber from "../src/types/DNCNumber.js"
+import CbmObject from "../../src/memory/CbmObject.js"
+import DNCNumber from "../../src/types/DNCNumber.js"
 
 describe("cbmobject",()=>{
     it("test",()=>{

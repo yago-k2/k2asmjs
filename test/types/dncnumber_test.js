@@ -1,5 +1,5 @@
 import assert from "assert"
-import DNCNumber from "../src/types/DNCNumber.js"
+import DNCNumber from "../../src/types/DNCNumber.js"
 
 describe("DNCNumber",()=>{
     describe("calcBits",()=>{
