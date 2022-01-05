@@ -5,11 +5,15 @@ import arith from "./Arith.js"
 export default class AsmListener extends K2Asm6502ParserListener {
     #currentValue
     valueStack=[]
-    cbmobject
+    cbmObject
+    globalScope
+    currentScope
 
-    constructor(cbmobject) {
+    constructor(cbmobject,globalScope) {
         super()
-        this.cbmobject=cbmobject
+        this.cbmObject=cbmobject
+        this.globalScope=globalScope
+        this.currentScope=this.globalScope
     }
 
     exitBin(ctx) {
@@ -35,14 +39,16 @@ export default class AsmListener extends K2Asm6502ParserListener {
     exitMulDiv(ctx) { this.exitPlusMinus(ctx)}
 
     exitByte(ctx) {
-        this.valueStack.forEach( v=> this.cbmobject.add(v))
+        this.valueStack.forEach( v=> this.cbmObject.add(v))
         this.valueStack=[]
     }
 
     exitWord(ctx) {
+        console.log("got word")
+        console.log("valuestack=",this.valueStack)
         this.valueStack.forEach( v=> {
-            this.cbmobject.add(arith.calc1("<",v))
-            this.cbmobject.add(arith.calc1(">",v))
+            this.cbmObject.add(arith.calc1("<",v))
+            this.cbmObject.add(arith.calc1(">",v))
         })
         this.valueStack=[]
     }
@@ -50,10 +56,21 @@ export default class AsmListener extends K2Asm6502ParserListener {
     exitOrg(ctx) {
         if(this.valueStack.length==2) {
             let la=this.valueStack.pop()
-            this.cbmobject.setPc(la) //adjust emitter
+            this.cbmObject.setPc(la) //adjust emitter
         }
         let pc=this.valueStack.pop()
-        this.cbmobject.setPc(pc) //adjust emitter
+        this.cbmObject.setPc(pc) //adjust emitter
+    }
 
+
+    exitIdentifier(ctx) {
+        let name=ctx.children[0].getText()
+        this.valueStack.push(this.currentScope.get(name))
+    }
+
+    exitLabel(ctx) {
+        let name=ctx.ID().getText()
+        let value=this.cbmObject.pc
+        this.currentScope.put(name,value,false)
     }
 }
