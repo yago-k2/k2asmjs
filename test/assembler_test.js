@@ -10,23 +10,6 @@ describe("assembler", () => {
             assert.deepEqual(actual,[0,16,2])
         })
     })
-    describe("milestone 1", () => {
-        it("just some bytes", () => {
-            let asm = new Assembler()
-            asm.assemble(".byte 1,2,3")
-            assert.deepEqual(asm.cbmobject.getObject(), [0, 16, 1, 2, 3])
-        })
-        it("just some hexbytes", () => {
-            let asm = new Assembler()
-            asm.assemble(".byte $1,$2,$3")
-            assert.deepEqual(asm.cbmobject.getObject(), [0, 16, 1, 2, 3])
-        })
-        it("just some binary bytes", () => {
-            let asm = new Assembler()
-            asm.assemble(".byte %1,%10,%11")
-            assert.deepEqual(asm.cbmobject.getObject(), [0, 16, 1, 2, 3])
-        })
-    })
 
     describe("milestone 2", () =>{
         it("bytes with arithmetic",()=>{

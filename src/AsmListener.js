@@ -39,6 +39,14 @@ export default class AsmListener extends K2Asm6502ParserListener {
         this.valueStack=[]
     }
 
+    exitWord(ctx) {
+        this.valueStack.forEach( v=> {
+            this.cbmobject.add(arith.calc1("<",v))
+            this.cbmobject.add(arith.calc1(">",v))
+        })
+        this.valueStack=[]
+    }
+
     exitOrg(ctx) {
         if(this.valueStack.length==2) {
             let la=this.valueStack.pop()
