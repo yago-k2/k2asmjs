@@ -36,7 +36,6 @@ export default class AsmListener extends K2Asm6502ParserListener {
             this.cbmobject.setPc(la) //adjust emitter
         }
         let pc=this.valueStack.pop()
-        console.log("pc=",pc)
         this.cbmobject.setPc(pc) //adjust emitter
 
     }

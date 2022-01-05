@@ -13,7 +13,6 @@ export default class CbmObject {
     }
 
     setPc(pc) {
-        console.log("setting pc to",pc)
         this.pc=pc
     }
 
