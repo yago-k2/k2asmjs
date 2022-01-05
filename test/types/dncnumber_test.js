@@ -100,6 +100,10 @@ describe("DNCNumber",()=>{
             assert.deepEqual(actual3,{val:128,dnc:1,bits:8})
             assert.equal(actual3.toString(),"%1000000?")
         })
+        it("zeropage",()=>{
+            let actual=DNCNumber.parse("$0001")
+            assert.equal(actual.toString(),"$0001")
+        })
     })
     describe("constructor",()=>{
         it("with two args",()=>{

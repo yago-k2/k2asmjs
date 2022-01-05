@@ -16,7 +16,7 @@ export default class DNCNumber {
     toString() {
         let result
         let error = this.dnc
-        if (this.dnc == 0) {
+        if (this.dnc == 0 && (this.bits==8||(this.bits==16&&this.val>255) )) {
             return this.val.toString()
         }
         if (this.bits == 16) {
