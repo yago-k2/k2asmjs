@@ -36,5 +36,52 @@ describe("assembler", () => {
             let actual=asm.cbmObject.getObject()
             assert.deepEqual(actual,[0,192,42,1,192])
         })
+        it("an assignment",()=>{
+            let asm=new Assembler()
+            asm.assemble(`
+            .org $c000
+            label=42
+            .byte label
+            `)
+            let actual=asm.cbmObject.getObject()
+            assert.deepEqual(actual,[0,192,42])
+        })
+        it("an inner assignment",()=>{
+            let asm=new Assembler()
+            asm.assemble(`
+            .org $c000
+            label=42
+            {
+              .byte label
+            }
+            `)
+            let actual=asm.cbmObject.getObject()
+            assert.deepEqual(actual,[0,192,42])
+        })
+        it("an inner assignment",()=>{
+            let asm=new Assembler()
+            asm.assemble(`
+            .org $c000
+            label=42
+            {
+            label=99
+              .byte label
+            }
+            .byte label
+            `)
+            let actual=asm.cbmObject.getObject()
+            assert.deepEqual(actual,[0,192,99,42])
+        })
+        it("forward assignment",()=>{
+            let asm=new Assembler()
+            asm.assemble(`
+            .org $c000
+            .byte label
+            label=42
+            `)
+            let actual=asm.cbmObject.getObject()
+            assert.deepEqual(actual,[0,192,42])
+        })
+
     })
 })

@@ -6,6 +6,7 @@ import AsmListener from "./AsmListener.js";
 import CbmObject from "./memory/CbmObject.js";
 import Scope from "./Scope.js";
 import SymbolTable from "./SymbolTable.js";
+import { ParseTreeWalker } from "antlr4/src/antlr4/tree/Tree.js";
 
 export default class Assembler {
     cbmObject
@@ -18,14 +19,23 @@ export default class Assembler {
     assemble(source) {
         this.cbmObject=new CbmObject()
         this.globalScope=new Scope(null,"",new SymbolTable())
+
         const chars = new antlr4.InputStream(source)
         const lexer = new AsmLexer(chars)
         const tokens = new antlr4.CommonTokenStream(lexer)
         const parser = new AsmParser(tokens)
         parser.buildParseTrees = true
         const tree = parser.input()
-        const assembler = new AsmListener(this.cbmObject,this.globalScope)
-        antlr4.tree.ParseTreeWalker.DEFAULT.walk(assembler, tree)
+        const walker=new ParseTreeWalker()
+        
+        const pass1 = new AsmListener(this.cbmObject,this.globalScope)
+        walker.walk(pass1,tree)
+ 
+        //2pass asm
+        this.cbmObject=new CbmObject()
+        const pass2 = new AsmListener(this.cbmObject,this.globalScope)
+        walker.walk(pass2,tree)
+        
     }
 
 }
