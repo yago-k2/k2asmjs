@@ -10,7 +10,7 @@ export default class DNCNumber {
         if (args.length < 2) throw Error("implement me")
         this.bits = args[0]
         if (typeof args[1] == "number") this.val = args[1]
-        if (args[2]) this.dnc = args[2]
+        if (args[2]!=undefined) this.dnc = args[2]
     }
 
     static calcBits(arg) {
@@ -28,6 +28,9 @@ export default class DNCNumber {
         let val
         let dnc
         let tmp
+        string=""+string
+        //console.log("parsing ",string)
+        //console.log("first elem:",string[0])
         switch (string[0]) {
             case "%": {
                 tmp = string.substr(1)
@@ -51,17 +54,19 @@ export default class DNCNumber {
                 break
             }
             default: {
+                console.log("inside decimal number parse")
                 if (string[0] == "?") {
                     val = 0;
-                    dnc = (1 << this.bits) - 1
+                    dnc = 255;//(1 << this.bits) - 1
                 }
                 else {
                     val = parseInt(string)
-                    //dnc = 0
+                    dnc = 0
                 }
                 break
             }
         }
+        console.log("returning a new DNCNumber with val",val,"and dnc",dnc)
         return new DNCNumber(DNCNumber.calcBits(val), val, dnc)
     }
 

@@ -17,6 +17,13 @@ describe("DNCNumber",()=>{
             assert.equal(DNCNumber.parse("0").val,0)
             assert.equal(DNCNumber.parse("1").val,1)
         })
+        it("decimal numbers as numbers (bug or feature?)",()=>{
+            let actual=DNCNumber.parse(1)
+            assert.equal(actual.val,1)
+            assert.equal(actual.bits,8)
+            assert.deepEqual(DNCNumber.parse(500),{val:500,bits:16,dnc:0})
+
+        })
         it("hexadecimal numbers",()=>{
             assert.equal(DNCNumber.parse("$10").val,16)
             assert.equal(DNCNumber.parse("$ff").val,255)
@@ -31,10 +38,10 @@ describe("DNCNumber",()=>{
 
     describe("parse dnc",()=>{
         it("decimal numbers",()=>{
-            assert.equal(DNCNumber.parse("?").val,0)
+            assert.deepEqual(DNCNumber.parse("?"),{val:0,dnc:255,bits:8})
         })
         it("hexadecimal numbers",()=>{
-            assert.equal(DNCNumber.parse("$1?").val,16)
+            assert.deepEqual(DNCNumber.parse("$1?"),{val:16,dnc:15,bits:8})
             assert.equal(DNCNumber.parse("$?f").val,15)
             let actual=DNCNumber.parse("$1???")
             assert.equal(actual.val,4096)
