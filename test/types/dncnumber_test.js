@@ -72,6 +72,29 @@ describe("DNCNumber",()=>{
     describe("parsing non-strings",()=>{
         it("numbers",()=>{
             assert.deepEqual(DNCNumber.parse(5),{val:5,dnc:0,bits:8})
+            assert.deepEqual(DNCNumber.parse(5.0),{val:5,dnc:0,bits:8})
+        })
+        it("another dnc-number",()=>{
+            let dncNr=new DNCNumber(8,100,0)
+            assert.deepEqual(DNCNumber.parse(dncNr),{bits:8,val:100,dnc:0})
+        })
+    })
+    describe("toString",()=>{
+        it("without dnc",()=>{
+            let actual1=new DNCNumber(8,100,0)
+            assert.equal(actual1.toString(),"100")
+            let actual2=new DNCNumber(16,4096,0)
+            assert.equal(actual2.toString(),"4096")
+        })
+        it("with dnc",()=>{
+            let actual1=new DNCNumber(8,16,15)
+            assert.equal(actual1.toString(),"$1?")
+            let actual2=DNCNumber.parse("$100?")
+            assert.deepEqual(actual2,{val:4096,dnc:15,bits:16})
+            assert.equal(actual2.toString(),"$100?")
+            let actual3=DNCNumber.parse("%1000000?")
+            assert.deepEqual(actual3,{val:128,dnc:1,bits:8})
+            assert.equal(actual3.toString(),"%1000000?")
         })
     })
     describe("constructor",()=>{
