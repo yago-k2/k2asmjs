@@ -46,6 +46,10 @@ describe("DNCNumber",()=>{
             assert.equal(DNCNumber.parse("$1??2").val,4098)
 
         })
+        it("zeropage",()=>{
+            assert.deepEqual(DNCNumber.parse("$01"),{val:1,dnc:0,bits:8})
+            assert.deepEqual(DNCNumber.parse("$0001"),{val:1,dnc:0,bits:16})
+        })
         it("binary numbers",()=>{
             assert.equal(DNCNumber.parse("%0?").val,0)
             assert.equal(DNCNumber.parse("%?1").val,1)

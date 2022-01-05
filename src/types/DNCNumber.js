@@ -63,6 +63,7 @@ export default class DNCNumber {
         let val
         let dnc
         let tmp
+        let bits=0
         string = "" + string
         switch (string[0]) {
             case "%": {
@@ -78,6 +79,7 @@ export default class DNCNumber {
             }
             case "$": {
                 tmp = string.substr(1)
+                if(tmp.startsWith("00")&&tmp.length==4) bits=16
                 dnc = 0
                 if (tmp.includes("?")) {
                     dnc = tmp.split("").map(c => c == "?" ? "f" : "0").join("")
@@ -99,7 +101,8 @@ export default class DNCNumber {
                 break
             }
         }
-        return new DNCNumber(DNCNumber.calcBits(val), val, dnc)
+        if(bits==0) bits=DNCNumber.calcBits(val)
+        return new DNCNumber(bits, val, dnc)
     }
 
 }
