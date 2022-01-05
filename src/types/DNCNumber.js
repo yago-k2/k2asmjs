@@ -43,6 +43,7 @@ export default class DNCNumber {
             }
             case "$": {
                 tmp = string.substr(1)
+                dnc=0
                 if (tmp.includes("?")) {
                     dnc = tmp.split("").map(c => c == "?" ? "f" : "0").join("")
                     dnc = parseInt(dnc, 16)
@@ -52,7 +53,6 @@ export default class DNCNumber {
                 break
             }
             default: {
-                console.log("inside decimal number parse")
                 if (string[0] == "?") {
                     val = 0
                     dnc = 255

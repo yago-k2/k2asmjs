@@ -7,9 +7,6 @@ describe("DNCNumber",()=>{
             assert.equal(DNCNumber.calcBits(22),8)
             assert.equal(DNCNumber.calcBits(4097),16)
         })
-        // it("decimal strings",()=>{
-        //     assert.equal(DNCNumber.calcBits("22"),8)
-        // })
 
     })
     describe("parse",()=>{
@@ -27,7 +24,7 @@ describe("DNCNumber",()=>{
         it("hexadecimal numbers",()=>{
             assert.equal(DNCNumber.parse("$10").val,16)
             assert.equal(DNCNumber.parse("$ff").val,255)
-            assert.equal(DNCNumber.parse("$1000").val,4096)
+            assert.deepEqual(DNCNumber.parse("$1000"),{val:4096,dnc:0,bits:16})
 
         })
         it("binary numbers",()=>{
@@ -72,12 +69,20 @@ describe("DNCNumber",()=>{
             DNCNumber.dncNib="0"
         })
     })
+    describe("parsing non-strings",()=>{
+        it("numbers",()=>{
+            assert.deepEqual(DNCNumber.parse(5),{val:5,dnc:0,bits:8})
+        })
+    })
     describe("constructor",()=>{
         it("with two args",()=>{
             let actual=new DNCNumber(8,100)
             let expected={bits:8, val:100}
             assert.equal(actual.bits,expected.bits)
             assert.equal(actual.val,expected.val)
+        })
+        it("with three args",()=>{
+            assert.deepEqual(new DNCNumber(8,100,1),{bits:8,val:100,dnc:1})
         })
     })
 })
