@@ -29,8 +29,6 @@ export default class DNCNumber {
         let dnc
         let tmp
         string=""+string
-        //console.log("parsing ",string)
-        //console.log("first elem:",string[0])
         switch (string[0]) {
             case "%": {
                 tmp = string.substr(1)
@@ -56,8 +54,8 @@ export default class DNCNumber {
             default: {
                 console.log("inside decimal number parse")
                 if (string[0] == "?") {
-                    val = 0;
-                    dnc = 255;//(1 << this.bits) - 1
+                    val = 0
+                    dnc = 255
                 }
                 else {
                     val = parseInt(string)
@@ -66,7 +64,6 @@ export default class DNCNumber {
                 break
             }
         }
-        console.log("returning a new DNCNumber with val",val,"and dnc",dnc)
         return new DNCNumber(DNCNumber.calcBits(val), val, dnc)
     }
 
