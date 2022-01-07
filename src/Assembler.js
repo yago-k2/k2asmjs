@@ -30,9 +30,10 @@ export default class Assembler {
         
         const pass1 = new AsmListener(this.cbmObject,this.globalScope)
         walker.walk(pass1,tree)
- 
+
         //2pass asm
         this.cbmObject=new CbmObject()
+        this.globalScope.nextPass()
         const pass2 = new AsmListener(this.cbmObject,this.globalScope)
         walker.walk(pass2,tree)
         

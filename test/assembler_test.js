@@ -58,7 +58,7 @@ describe("assembler", () => {
             let actual=asm.cbmObject.getObject()
             assert.deepEqual(actual,[0,192,42])
         })
-        it("an inner assignment",()=>{
+        it("inner and outer assignment",()=>{
             let asm=new Assembler()
             asm.assemble(`
             .org $c000
@@ -72,15 +72,41 @@ describe("assembler", () => {
             let actual=asm.cbmObject.getObject()
             assert.deepEqual(actual,[0,192,99,42])
         })
-        it("forward assignment",()=>{
+        it("access to named scope",()=>{
             let asm=new Assembler()
             asm.assemble(`
-            .org $c000
-            .byte label
-            label=42
+            .scope benamst {
+                peter=1
+            }
+            .word benamst
             `)
             let actual=asm.cbmObject.getObject()
-            assert.deepEqual(actual,[0,192,42])
+            assert.deepEqual(actual,[0,16,0,16])
+        })
+        // it("access inside named scope",()=>{
+        //     let asm=new Assembler()
+        //     asm.assemble(`
+        //     .scope benamst {
+        //         .local peter=1
+        //     }
+        //     .byte benamst.peter
+        //     `)
+        //     let actual=asm.cbmObject.getObject()
+        //     assert.deepEqual(actual,[0,16,1])
+        // })
+        it("scope inside scope",()=>{
+            let asm=new Assembler()
+            asm.assemble(`
+                .scope music {
+                    .byte 1
+                    .scope play {
+                        .byte 2
+                    }
+                }
+                .word music.play
+            `)
+            let actual=asm.cbmObject.getObject()
+            assert.deepEqual(actual,[0,16,1,2,1,16])
         })
 
     })
