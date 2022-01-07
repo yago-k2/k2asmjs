@@ -11,6 +11,7 @@ export default class AsmListener extends K2Asm6502ParserListener {
     cbmObject
     globalScope
     currentScope
+    currentModifier = "none"
 
     constructor(cbmobject, globalScope) {
         super()
@@ -68,35 +69,16 @@ export default class AsmListener extends K2Asm6502ParserListener {
         let name = ctx.children[0].getText()
         let value = this.currentScope.get(name)
         if (value == null) {
-            if (name in this.currentScope.children) {
-                value = this.currentScope.children[name].pc
-            }
-            else {
-                value = DNCNumber.parse(142) //doesnt matter, any valid value
-            }
+            value = DNCNumber.parse(142) //doesnt matter, any valid value
         }
         this.valueStack.push(value)
     }
 
     exitDot(ctx) {
-        let name = ctx.ID()[0].getText()
-        let property = ctx.ID()[1].getText()
-        let value
-        if (ctx.ID().length != 2) throw Error("implement me")
-        if (this.currentScope.hasOld(name)) {
-            if (this.currentScope.get(name))
-                value = this.currentScope.get(name).get(property)
-        }
-        else {
-            //scope in scope
-            if(name in this.currentScope.children) {
-                value=this.currentScope.children[name].get(property)
-                if(value==null) {
-                    value=this.currentScope.children[name].children[property].pc
-                }
-            }
-            else throw Error("no scope no map")
-        }
+        let allIds = ctx.ID().map(e => e.getText())
+        let value = this.currentScope.get(allIds)
+        if (value == null) value = DNCNumber.parse(143) // doesnt matter
+
         this.valueStack.push(value)
 
     }
@@ -107,26 +89,41 @@ export default class AsmListener extends K2Asm6502ParserListener {
         this.currentScope.put(name, value, false)
     }
 
+    exitLocalModifier(ctx) {
+        this.currentModifier = "local"
+        console.log("found .local")
+    }
+    exitGlobalModifier(ctx) { this.currentModifier = "global" }
+    exitExportModifier(ctx) { this.currentModifier = "export" }
+
+    enterSimpleAssign(ctx) { this.currentModifier = "none" }
     exitSimpleAssign(ctx) {
+        
         let value = this.valueStack.pop()
-        let name = ctx.children[0].getText()
-        let nrComponents = ctx.children.length - 2 //"=",val
+//        console.log("IDlength",ctx.ID().length)
+//        console.log("id",ctx.ID()[0].getText())
+        let name = ctx.ID()[0].getText()
+        let nrComponents = ctx.ID().length //ctx.children.length - 2 //"=",val
+        let scope = this.currentScope
+
+        if (this.currentModifier == "local") scope = this.currentScope.parent
+
         //check if name is in scope
-        if (this.currentScope.hasNew(name)) {
+        if (scope.hasNew(name)) {
             //if its a map, set that value
             throw Error("implement me")
             //if its not a map, doubledefinition error
         }
         else {
             if (nrComponents == 1) {
-                this.currentScope.put(name, value, false)
+                scope.put(name, value, false)
             }
             else {
                 //we have trailing components
                 //create a dncmap, store value
                 let map = new DNCMap()
-                map.put(ctx.children[2], value)
-                this.currentScope.put(name, map, false)
+                map.put(ctx.ID()[1], value)
+                scope.put(name, map, false)
             }
         }
 
@@ -147,7 +144,7 @@ export default class AsmListener extends K2Asm6502ParserListener {
     enterNamedScope(ctx) {
         let name = ctx.children[1].getText()
         let scope = new Scope(this.currentScope, name, new SymbolTable())
-        scope.pc = new DNCNumber(16,this.cbmObject.pc.val)
+        scope.pc = new DNCNumber(16, this.cbmObject.pc.val)
         this.currentScope.addChildren(scope)
         this.currentScope = scope
         this.currentScope.put("_cont", this.cbmObject.pc, false)

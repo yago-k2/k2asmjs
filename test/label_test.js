@@ -44,5 +44,17 @@ describe("labels",()=>{
         assert.deepEqual(actual,[0,192,0,208])
     })
 
+    it("labels with 3 dot",()=>{
+        let asm=new Assembler()
+        asm.assemble(`
+            .org $c000
+            vic.spr0x.DEFAULT.value=128
+            .byte vic.spr0x.DEFAULT.value
+        `)
+
+        let actual=asm.cbmObject.getObject()
+        assert.deepEqual(actual,[0,192,128])
+    })
+
 })
 
