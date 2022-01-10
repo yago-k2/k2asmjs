@@ -1,4 +1,5 @@
 import arith from "./Arith.js"
+import DNCNumber from "./types/DNCNumber.js"
 
 export default class Emitter {
     #memory
@@ -13,6 +14,10 @@ export default class Emitter {
     }
     getPc() { return this.#memory.pc}
 
+    emitByte(byte) {
+        this.emitDNCByte(new DNCNumber(8,byte))
+    }
+
     emitDNCByte(dncbyte) {
         //inside Annotation?
         this.#memory.add(dncbyte)
@@ -22,4 +27,5 @@ export default class Emitter {
         this.emitDNCByte(arith.calc1("<",dncword))
         this.emitDNCByte(arith.calc1(">",dncword))
     }
+
 }

@@ -4,7 +4,6 @@ import arith from "./Arith.js"
 import SymbolTable from "./SymbolTable.js"
 import Scope from "./Scope.js"
 import DNCMap from "./types/DNCMap.js"
-import opcMap from "./data/6502opcodes.js"
 
 export default class AsmListener extends K2Asm6502ParserListener {
     #currentValue
@@ -13,12 +12,14 @@ export default class AsmListener extends K2Asm6502ParserListener {
     globalScope
     currentScope
     currentModifier = "none"
+    opcodeHelper
 
-    constructor(emitter, globalScope) {
+    constructor(emitter, globalScope, opcodeHelper) {
         super()
         this.emitter = emitter
         this.globalScope = globalScope
         this.currentScope = this.globalScope
+        this.opcodeHelper=opcodeHelper
     }
 
     exitBin(ctx) {
@@ -155,12 +156,15 @@ export default class AsmListener extends K2Asm6502ParserListener {
 
     exitImplied(ctx) {
         let name=ctx.children[0].getText()
-        this.emitter.emitDNCByte(new DNCNumber(8,opcMap[name].imp))
+        this.opcodeHelper.imp(name)
+        //this.emitter.emitByte(opcMap[name].imp)
     }
     exitImm(ctx) {
         let name=ctx.children[0].getText()
-        this.emitter.emitDNCByte(new DNCNumber(8,opcMap[name].imm))
-        this.emitter.emitDNCByte(this.valueStack.pop())
+        this.opcodeHelper.imm(name,this.valueStack.pop())
+        //this.emitter.emitByte(opcMap[name].imm)
+        //this.emitter.emitDNCByte(this.valueStack.pop())
     }
+
 
 }
