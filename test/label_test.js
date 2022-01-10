@@ -76,7 +76,6 @@ describe("labels",()=>{
         }
         .byte benamst.peter
         `)
-        //console.log("globalscope=",asm.globalScope.toString())
         let actual=asm.cbmObject.getObject()
         assert.deepEqual(actual,[0,16,1])
     })
