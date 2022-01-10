@@ -7,13 +7,13 @@ describe("opcodes",()=>{
         asm.assemble("nop\n")
         assert.deepEqual(asm.getObject(),[0,16,234])
     })
-    // it("absolute",()=>{
-    //     let asm=new Assembler()
-    //     asm.assemble(`
-    //     jmp $ffe2
-    //     `)
-    //     assert.deepEqual(asm.getObject(),[0,16,96,0xe2,0xff])
-    // })
+    it("absolute",()=>{
+        let asm=new Assembler()
+        asm.assemble(`
+        lda $ffe2
+        `)
+        assert.deepEqual(asm.getObject(),[0,16,173,0xe2,0xff])
+    })
     it("immediate",()=>{
         let asm=new Assembler()
         asm.assemble(`

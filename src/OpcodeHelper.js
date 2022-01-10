@@ -22,4 +22,14 @@ export default class OpcodeHelper {
         this.emitter.emitByte(out)
         if((out+pc.val)>>8!=pc.val>>8) throw Error("WARNING! branch crosses page")
     }
+    absOrZp(name,value) {
+        if(value.bits==8 && opcMap[name].zp) {
+            this.emitter.emitByte(opcMap[name].zp)
+            this.emitter.emitDNCByte(value)
+        }
+        else {
+            this.emitter.emitByte(opcMap[name].abs)
+            this.emitter.emitDNCWord(value)
+        }
+    }
 }
