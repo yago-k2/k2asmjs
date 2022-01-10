@@ -170,4 +170,13 @@ export default class AsmListener extends K2Asm6502ParserListener {
         let name=ctx.children[0].getText()
         this.opcodeHelper.absOrZp(name,this.valueStack.pop())
     }
+    exitIndexed(ctx) {
+        let name=ctx.children[0].getText()
+        if(ctx.children[3].getText()=="x") {
+            this.opcodeHelper.indXAbsOrZp(name,this.valueStack.pop())
+        }
+        else {
+            this.opcodeHelper.indYAbsOrZp(name,this.valueStack.pop())
+        }
+    }
 }

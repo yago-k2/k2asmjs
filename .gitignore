@@ -4,3 +4,4 @@ package-lock.json
 tools/antlr-4.9.3-complete.jar
 src/grammar/*.java
 src/grammar/*.class
+src/grammar/.antlr/*

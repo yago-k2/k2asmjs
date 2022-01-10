@@ -32,4 +32,28 @@ export default class OpcodeHelper {
             this.emitter.emitDNCWord(value)
         }
     }
+    indXAbsOrZp(name,value) {
+        if(value.bits==8 && opcMap[name].zpx) {
+            this.emitter.emitByte(opcMap[name].zpx)
+            this.emitter.emitDNCByte(value)
+        }
+        else {
+            this.emitter.emitByte(opcMap[name].absx)
+            this.emitter.emitDNCWord(value)
+        }
+
+    }
+
+    indYAbsOrZp(name,value) {
+        if(value.bits==8 && opcMap[name].zpy) {
+            this.emitter.emitByte(opcMap[name].zpy)
+            this.emitter.emitDNCByte(value)
+        }
+        else {
+            this.emitter.emitByte(opcMap[name].absy)
+            this.emitter.emitDNCWord(value)
+        }
+
+    }
+
 }
