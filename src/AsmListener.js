@@ -4,6 +4,7 @@ import arith from "./Arith.js"
 import SymbolTable from "./SymbolTable.js"
 import Scope from "./Scope.js"
 import DNCMap from "./types/DNCMap.js"
+import opcMap from "./data/6502opcodes.js"
 
 export default class AsmListener extends K2Asm6502ParserListener {
     #currentValue
@@ -43,14 +44,13 @@ export default class AsmListener extends K2Asm6502ParserListener {
     exitMulDiv(ctx) { this.exitPlusMinus(ctx) }
 
     exitByte(ctx) {
-        this.valueStack.forEach(v=>this.emitter.emitDNCByte(v)) //(v => this.cbmObject.add(v))
+        this.valueStack.forEach(v=>this.emitter.emitDNCByte(v))
         this.valueStack = []
     }
 
     exitWord(ctx) {
         this.valueStack.forEach(v => {
-            this.emitter.emitDNCWord(v) //this.cbmObject.add(arith.calc1("<", v))
-            //this.cbmObject.add(arith.calc1(">", v))
+            this.emitter.emitDNCWord(v)
         })
         this.valueStack = []
     }
@@ -58,11 +58,9 @@ export default class AsmListener extends K2Asm6502ParserListener {
     exitOrg(ctx) {
         if (this.valueStack.length == 2) {
             let la = this.valueStack.pop()
-            //this.cbmObject.setPc(la) //adjust emitter
             this.emitter.setPc(la)
         }
         let pc = this.valueStack.pop()
-        //this.cbmObject.setPc(pc) //adjust emitter
         this.emitter.setPc(pc)
     }
 
@@ -87,7 +85,7 @@ export default class AsmListener extends K2Asm6502ParserListener {
 
     exitLabel(ctx) {
         let name = ctx.ID().getText()
-        let value = this.emitter.getPc() //this.cbmObject.pc
+        let value = this.emitter.getPc()
         this.currentScope.put(name, value, false)
     }
 
@@ -153,6 +151,16 @@ export default class AsmListener extends K2Asm6502ParserListener {
         this.currentScope.put("_break", pc, false)
         this.currentScope.put("_end", pc, false)
         this.currentScope = this.currentScope.parent
+    }
+
+    exitImplied(ctx) {
+        let name=ctx.children[0].getText()
+        this.emitter.emitDNCByte(new DNCNumber(8,opcMap[name].imp))
+    }
+    exitImm(ctx) {
+        let name=ctx.children[0].getText()
+        this.emitter.emitDNCByte(new DNCNumber(8,opcMap[name].imm))
+        this.emitter.emitDNCByte(this.valueStack.pop())
     }
 
 }

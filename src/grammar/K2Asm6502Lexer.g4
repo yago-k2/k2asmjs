@@ -62,8 +62,6 @@ COMMENT_OPEN: ';' -> pushMode(COMMENT);
 //COMMENT_OPEN: ';;' -> pushMode(COMMENT);
 //ML_COMMENT_OPEN: ';;;' -> pushMode(ML_COMMENT);
 
-ID		: (('_'|UnicodeLetter)+ ('_'|UnicodeLetter|[0-9])*);
-
 OPC_REL: 'bcc'|'bcs'|'beq'|'bmi'|'bne'|'bpl'|'bvc'|'bvs';
 
 OPC_1:   'adc'|'and'|'bit'|'cmp'|'cpx'|'cpy'|'dec'|'eor'|'inc'|'lda'|'ldx'
@@ -78,6 +76,8 @@ OPC_0:   'clc'|'cld'|'cli'|'clv'|'dex'|'dey'|'inx'|'iny'|'nop'|'pha'|'php'
 ;
 
 OPC_2: 'asl'|'rol'|'lsr'|'ror'|'brk';
+
+ID		: (('_'|UnicodeLetter)+ ('_'|UnicodeLetter|[0-9])*);
 
 DEC		: '?'|([0-9])+;
 HEX		: '$'([0-9a-fA-F]|'?')+;

@@ -63,8 +63,8 @@ const serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786",
     "\u0003\u0016\u0003\u0017\u0003\u0017\u0003\u0017\u0002\u0003\u0012\u0018",
     "\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c",
     "\u001e \"$&(*,\u0002\n\u0003\u00029:\u0005\u0002\u0012\u0012\u0014\u0015",
-    "//\u0003\u0002\u0012\u0013\u0003\u0002\u0014\u0015\u0004\u0002\u0016",
-    "\u00189<\u0004\u00021144\u0003\u000234\u0004\u0002//88\u0002\u01b4\u0002",
+    "44\u0003\u0002\u0012\u0013\u0003\u0002\u0014\u0015\u0004\u0002\u0016",
+    "\u00189<\u0004\u00020033\u0003\u000223\u0004\u00024488\u0002\u01b4\u0002",
     "1\u0003\u0002\u0002\u0002\u00049\u0003\u0002\u0002\u0002\u0006I\u0003",
     "\u0002\u0002\u0002\bd\u0003\u0002\u0002\u0002\ng\u0003\u0002\u0002\u0002",
     "\f\u009a\u0003\u0002\u0002\u0002\u000e\u009f\u0003\u0002\u0002\u0002",
@@ -93,7 +93,7 @@ const serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786",
     "\u0002OS\u0007\u0007\u0002\u0002PR\u0005\u0004\u0003\u0002QP\u0003\u0002",
     "\u0002\u0002RU\u0003\u0002\u0002\u0002SQ\u0003\u0002\u0002\u0002ST\u0003",
     "\u0002\u0002\u0002TV\u0003\u0002\u0002\u0002US\u0003\u0002\u0002\u0002",
-    "Ve\u0007\b\u0002\u0002WX\u0007\u000e\u0002\u0002XZ\u0007/\u0002\u0002",
+    "Ve\u0007\b\u0002\u0002WX\u0007\u000e\u0002\u0002XZ\u00074\u0002\u0002",
     "Y[\u0005\u0010\t\u0002ZY\u0003\u0002\u0002\u0002Z[\u0003\u0002\u0002",
     "\u0002[\\\u0003\u0002\u0002\u0002\\`\u0007\u0007\u0002\u0002]_\u0005",
     "\u0004\u0003\u0002^]\u0003\u0002\u0002\u0002_b\u0003\u0002\u0002\u0002",
@@ -101,16 +101,16 @@ const serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786",
     "\u0002b`\u0003\u0002\u0002\u0002ce\u0007\b\u0002\u0002dM\u0003\u0002",
     "\u0002\u0002dW\u0003\u0002\u0002\u0002e\t\u0003\u0002\u0002\u0002fh",
     "\u0005\u000e\b\u0002gf\u0003\u0002\u0002\u0002gh\u0003\u0002\u0002\u0002",
-    "hi\u0003\u0002\u0002\u0002ij\u0007/\u0002\u0002jk\u0007\u0005\u0002",
+    "hi\u0003\u0002\u0002\u0002ij\u00074\u0002\u0002jk\u0007\u0005\u0002",
     "\u0002k\u000b\u0003\u0002\u0002\u0002ln\u0005\u000e\b\u0002ml\u0003",
     "\u0002\u0002\u0002mn\u0003\u0002\u0002\u0002no\u0003\u0002\u0002\u0002",
-    "ot\u0007/\u0002\u0002pq\u0007\u0004\u0002\u0002qs\u0007/\u0002\u0002",
+    "ot\u00074\u0002\u0002pq\u0007\u0004\u0002\u0002qs\u00074\u0002\u0002",
     "rp\u0003\u0002\u0002\u0002sv\u0003\u0002\u0002\u0002tr\u0003\u0002\u0002",
     "\u0002tu\u0003\u0002\u0002\u0002uw\u0003\u0002\u0002\u0002vt\u0003\u0002",
     "\u0002\u0002wx\u0007\u0006\u0002\u0002x\u009b\u0005\u0012\n\u0002y{",
     "\u0005\u000e\b\u0002zy\u0003\u0002\u0002\u0002z{\u0003\u0002\u0002\u0002",
-    "{|\u0003\u0002\u0002\u0002|\u0081\u0007/\u0002\u0002}~\u0007\u0004\u0002",
-    "\u0002~\u0080\u0007/\u0002\u0002\u007f}\u0003\u0002\u0002\u0002\u0080",
+    "{|\u0003\u0002\u0002\u0002|\u0081\u00074\u0002\u0002}~\u0007\u0004\u0002",
+    "\u0002~\u0080\u00074\u0002\u0002\u007f}\u0003\u0002\u0002\u0002\u0080",
     "\u0083\u0003\u0002\u0002\u0002\u0081\u007f\u0003\u0002\u0002\u0002\u0081",
     "\u0082\u0003\u0002\u0002\u0002\u0082\u0084\u0003\u0002\u0002\u0002\u0083",
     "\u0081\u0003\u0002\u0002\u0002\u0084\u0085\u0007\u0006\u0002\u0002\u0085",
@@ -118,8 +118,8 @@ const serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786",
     "\u0088\u0005\u0012\n\u0002\u0088\u0089\u0007\f\u0002\u0002\u0089\u009b",
     "\u0003\u0002\u0002\u0002\u008a\u008c\u0005\u000e\b\u0002\u008b\u008a",
     "\u0003\u0002\u0002\u0002\u008b\u008c\u0003\u0002\u0002\u0002\u008c\u008d",
-    "\u0003\u0002\u0002\u0002\u008d\u0092\u0007/\u0002\u0002\u008e\u008f",
-    "\u0007\u0004\u0002\u0002\u008f\u0091\u0007/\u0002\u0002\u0090\u008e",
+    "\u0003\u0002\u0002\u0002\u008d\u0092\u00074\u0002\u0002\u008e\u008f",
+    "\u0007\u0004\u0002\u0002\u008f\u0091\u00074\u0002\u0002\u0090\u008e",
     "\u0003\u0002\u0002\u0002\u0091\u0094\u0003\u0002\u0002\u0002\u0092\u0090",
     "\u0003\u0002\u0002\u0002\u0092\u0093\u0003\u0002\u0002\u0002\u0093\u0095",
     "\u0003\u0002\u0002\u0002\u0094\u0092\u0003\u0002\u0002\u0002\u0095\u0096",
@@ -131,8 +131,8 @@ const serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786",
     "\u0002\u0002\u009e\u00a0\u0007\u0011\u0002\u0002\u009f\u009c\u0003\u0002",
     "\u0002\u0002\u009f\u009d\u0003\u0002\u0002\u0002\u009f\u009e\u0003\u0002",
     "\u0002\u0002\u00a0\u000f\u0003\u0002\u0002\u0002\u00a1\u00a2\u0007\u0019",
-    "\u0002\u0002\u00a2\u00aa\u0007/\u0002\u0002\u00a3\u00a4\u0007\u0019",
-    "\u0002\u0002\u00a4\u00a5\u0007/\u0002\u0002\u00a5\u00a6\u0007\t\u0002",
+    "\u0002\u0002\u00a2\u00aa\u00074\u0002\u0002\u00a3\u00a4\u0007\u0019",
+    "\u0002\u0002\u00a4\u00a5\u00074\u0002\u0002\u00a5\u00a6\u0007\t\u0002",
     "\u0002\u00a6\u00a7\u0005\u001e\u0010\u0002\u00a7\u00a8\u0007\n\u0002",
     "\u0002\u00a8\u00aa\u0003\u0002\u0002\u0002\u00a9\u00a1\u0003\u0002\u0002",
     "\u0002\u00a9\u00a3\u0003\u0002\u0002\u0002\u00aa\u0011\u0003\u0002\u0002",
@@ -149,11 +149,11 @@ const serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786",
     "\u0002\u0002\u0002\u00bf\u00bb\u0003\u0002\u0002\u0002\u00bf\u00bc\u0003",
     "\u0002\u0002\u0002\u00bf\u00bd\u0003\u0002\u0002\u0002\u00bf\u00be\u0003",
     "\u0002\u0002\u0002\u00c0\u00d4\u0003\u0002\u0002\u0002\u00c1\u00c4\u0007",
-    "/\u0002\u0002\u00c2\u00c3\u0007\u0004\u0002\u0002\u00c3\u00c5\u0007",
-    "/\u0002\u0002\u00c4\u00c2\u0003\u0002\u0002\u0002\u00c5\u00c6\u0003",
+    "4\u0002\u0002\u00c2\u00c3\u0007\u0004\u0002\u0002\u00c3\u00c5\u0007",
+    "4\u0002\u0002\u00c4\u00c2\u0003\u0002\u0002\u0002\u00c5\u00c6\u0003",
     "\u0002\u0002\u0002\u00c6\u00c4\u0003\u0002\u0002\u0002\u00c6\u00c7\u0003",
     "\u0002\u0002\u0002\u00c7\u00d4\u0003\u0002\u0002\u0002\u00c8\u00c9\u0007",
-    "/\u0002\u0002\u00c9\u00cb\u0007\t\u0002\u0002\u00ca\u00cc\u0005\u001e",
+    "4\u0002\u0002\u00c9\u00cb\u0007\t\u0002\u0002\u00ca\u00cc\u0005\u001e",
     "\u0010\u0002\u00cb\u00ca\u0003\u0002\u0002\u0002\u00cb\u00cc\u0003\u0002",
     "\u0002\u0002\u00cc\u00cd\u0003\u0002\u0002\u0002\u00cd\u00d4\u0007\n",
     "\u0002\u0002\u00ce\u00d4\t\u0003\u0002\u0002\u00cf\u00d0\u0007\t\u0002",
@@ -170,7 +170,7 @@ const serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786",
     "\t\u0005\u0002\u0002\u00da\u00e7\u0005\u0012\n\u0011\u00db\u00dc\f\u000f",
     "\u0002\u0002\u00dc\u00dd\t\u0006\u0002\u0002\u00dd\u00e7\u0005\u0012",
     "\n\u0010\u00de\u00df\f\u0006\u0002\u0002\u00df\u00e0\u0007\u0004\u0002",
-    "\u0002\u00e0\u00e1\u0007/\u0002\u0002\u00e1\u00e3\u0007\t\u0002\u0002",
+    "\u0002\u00e0\u00e1\u00074\u0002\u0002\u00e1\u00e3\u0007\t\u0002\u0002",
     "\u00e2\u00e4\u0005\u001e\u0010\u0002\u00e3\u00e2\u0003\u0002\u0002\u0002",
     "\u00e3\u00e4\u0003\u0002\u0002\u0002\u00e4\u00e5\u0003\u0002\u0002\u0002",
     "\u00e5\u00e7\u0007\n\u0002\u0002\u00e6\u00d5\u0003\u0002\u0002\u0002",
@@ -210,14 +210,14 @@ const serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786",
     "\u011a\u0103\u0003\u0002\u0002\u0002\u011a\u0106\u0003\u0002\u0002\u0002",
     "\u011a\u010a\u0003\u0002\u0002\u0002\u011a\u010c\u0003\u0002\u0002\u0002",
     "\u011a\u010e\u0003\u0002\u0002\u0002\u011a\u0110\u0003\u0002\u0002\u0002",
-    "\u011b\u0015\u0003\u0002\u0002\u0002\u011c\u011d\u00070\u0002\u0002",
+    "\u011b\u0015\u0003\u0002\u0002\u0002\u011c\u011d\u0007/\u0002\u0002",
     "\u011d\u0142\u0005\u0012\n\u0002\u011e\u011f\t\u0007\u0002\u0002\u011f",
     "\u0120\u0007\u001b\u0002\u0002\u0120\u0142\u0005\u0012\n\u0002\u0121",
     "\u0122\t\u0007\u0002\u0002\u0122\u0142\u0005\u0012\n\u0002\u0123\u0124",
-    "\u00071\u0002\u0002\u0124\u0125\u0007\t\u0002\u0002\u0125\u0126\u0005",
+    "\u00070\u0002\u0002\u0124\u0125\u0007\t\u0002\u0002\u0125\u0126\u0005",
     "\u0012\n\u0002\u0126\u0127\u0007\u001a\u0002\u0002\u0127\u0128\u0007",
     "\u001c\u0002\u0002\u0128\u0129\u0007\n\u0002\u0002\u0129\u0142\u0003",
-    "\u0002\u0002\u0002\u012a\u012b\u00071\u0002\u0002\u012b\u012c\u0007",
+    "\u0002\u0002\u0002\u012a\u012b\u00070\u0002\u0002\u012b\u012c\u0007",
     "\t\u0002\u0002\u012c\u012d\u0005\u0012\n\u0002\u012d\u012e\u0007\n\u0002",
     "\u0002\u012e\u012f\u0007\u001a\u0002\u0002\u012f\u0130\u0007\u001d\u0002",
     "\u0002\u0130\u0142\u0003\u0002\u0002\u0002\u0131\u0132\t\u0007\u0002",
@@ -225,9 +225,9 @@ const serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786",
     "\u0002\u0134\u0138\u0007\u001c\u0002\u0002\u0135\u0136\u0007\u001a\u0002",
     "\u0002\u0136\u0138\u0007\u001d\u0002\u0002\u0137\u0133\u0003\u0002\u0002",
     "\u0002\u0137\u0135\u0003\u0002\u0002\u0002\u0138\u0142\u0003\u0002\u0002",
-    "\u0002\u0139\u013a\u00072\u0002\u0002\u013a\u013b\u0007\t\u0002\u0002",
+    "\u0002\u0139\u013a\u00071\u0002\u0002\u013a\u013b\u0007\t\u0002\u0002",
     "\u013b\u013c\u0005\u0012\n\u0002\u013c\u013d\u0007\n\u0002\u0002\u013d",
-    "\u0142\u0003\u0002\u0002\u0002\u013e\u013f\u00072\u0002\u0002\u013f",
+    "\u0142\u0003\u0002\u0002\u0002\u013e\u013f\u00071\u0002\u0002\u013f",
     "\u0142\u0005\u0012\n\u0002\u0140\u0142\t\b\u0002\u0002\u0141\u011c\u0003",
     "\u0002\u0002\u0002\u0141\u011e\u0003\u0002\u0002\u0002\u0141\u0121\u0003",
     "\u0002\u0002\u0002\u0141\u0123\u0003\u0002\u0002\u0002\u0141\u012a\u0003",
@@ -236,7 +236,7 @@ const serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786",
     "\u0002\u0002\u0002\u0142\u0017\u0003\u0002\u0002\u0002\u0143\u0146\u0007",
     ">\u0002\u0002\u0144\u0146\u0007=\u0002\u0002\u0145\u0143\u0003\u0002",
     "\u0002\u0002\u0145\u0144\u0003\u0002\u0002\u0002\u0146\u0019\u0003\u0002",
-    "\u0002\u0002\u0147\u014c\u0007/\u0002\u0002\u0148\u0149\u0007/\u0002",
+    "\u0002\u0002\u0147\u014c\u00074\u0002\u0002\u0148\u0149\u00074\u0002",
     "\u0002\u0149\u014a\u0007\u0006\u0002\u0002\u014a\u014c\u0005\u0012\n",
     "\u0002\u014b\u0147\u0003\u0002\u0002\u0002\u014b\u0148\u0003\u0002\u0002",
     "\u0002\u014c\u001b\u0003\u0002\u0002\u0002\u014d\u0152\u0005\u001a\u000e",
@@ -286,7 +286,7 @@ export default class K2Asm6502Parser extends antlr4.Parser {
                             "'.align'", "'.buf'", "'.enc'", "'.encoding'", 
                             "'.enum'", "'.require'", "'.incbin'", "'.begin'", 
                             null, null, null, null, "'%!PS'", "';'", null, 
-                            null, null, "'jmp'", null, null, null, null, 
+                            null, "'jmp'", null, null, null, null, null, 
                             null, null, "'<'", "'>'", "'<<'", "'>>'" ];
     static symbolicNames = [ null, "WS", "DOT", "COLON", "EQUAL", "OPEN_CURLY", 
                              "CLOSE_CURLY", "OPEN_PARENS", "CLOSE_PARENS", 
@@ -297,11 +297,12 @@ export default class K2Asm6502Parser extends antlr4.Parser {
                              "ALIGN", "BUF", "ENC", "ENCODING", "ENUM", 
                              "REQUIRE", "INCBIN", "BLOCK_OPEN", "SHELL_OPEN", 
                              "PBM_OPEN", "SVG_OPEN", "YAML_OPEN", "EPS_OPEN", 
-                             "COMMENT_OPEN", "ID", "OPC_REL", "OPC_1", "OPC_JMP", 
-                             "OPC_0", "OPC_2", "DEC", "HEX", "BIN", "STRING", 
-                             "LEFT", "RIGHT", "SHL", "SHR", "TIME", "TIMEFRAMES", 
-                             "COMMENT_BODY", "BLOCK_BODY", "SVG_BODY", "YAML_BODY", 
-                             "EPS_BODY", "SHELL_BODY", "PBM_BODY" ];
+                             "COMMENT_OPEN", "OPC_REL", "OPC_1", "OPC_JMP", 
+                             "OPC_0", "OPC_2", "ID", "DEC", "HEX", "BIN", 
+                             "STRING", "LEFT", "RIGHT", "SHL", "SHR", "TIME", 
+                             "TIMEFRAMES", "COMMENT_BODY", "BLOCK_BODY", 
+                             "SVG_BODY", "YAML_BODY", "EPS_BODY", "SHELL_BODY", 
+                             "PBM_BODY" ];
     static ruleNames = [ "input", "line", "comment", "scope", "label", "assign", 
                          "modifier", "annotation", "expr", "pseudo", "opcode", 
                          "timef", "enumItem", "idlist", "list", "array", 
@@ -355,7 +356,7 @@ export default class K2Asm6502Parser extends antlr4.Parser {
 	        this.state = 47;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
-	        while((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << K2Asm6502Parser.OPEN_CURLY) | (1 << K2Asm6502Parser.SCOPE) | (1 << K2Asm6502Parser.GLOBAL) | (1 << K2Asm6502Parser.LOCAL) | (1 << K2Asm6502Parser.EXPORT) | (1 << K2Asm6502Parser.ATSIGN) | (1 << K2Asm6502Parser.ORG) | (1 << K2Asm6502Parser.BYTE) | (1 << K2Asm6502Parser.WORD) | (1 << K2Asm6502Parser.ALIGN))) !== 0) || ((((_la - 32)) & ~0x1f) == 0 && ((1 << (_la - 32)) & ((1 << (K2Asm6502Parser.BUF - 32)) | (1 << (K2Asm6502Parser.ENC - 32)) | (1 << (K2Asm6502Parser.ENCODING - 32)) | (1 << (K2Asm6502Parser.ENUM - 32)) | (1 << (K2Asm6502Parser.REQUIRE - 32)) | (1 << (K2Asm6502Parser.INCBIN - 32)) | (1 << (K2Asm6502Parser.BLOCK_OPEN - 32)) | (1 << (K2Asm6502Parser.SHELL_OPEN - 32)) | (1 << (K2Asm6502Parser.COMMENT_OPEN - 32)) | (1 << (K2Asm6502Parser.ID - 32)) | (1 << (K2Asm6502Parser.OPC_REL - 32)) | (1 << (K2Asm6502Parser.OPC_1 - 32)) | (1 << (K2Asm6502Parser.OPC_JMP - 32)) | (1 << (K2Asm6502Parser.OPC_0 - 32)) | (1 << (K2Asm6502Parser.OPC_2 - 32)))) !== 0)) {
+	        while((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << K2Asm6502Parser.OPEN_CURLY) | (1 << K2Asm6502Parser.SCOPE) | (1 << K2Asm6502Parser.GLOBAL) | (1 << K2Asm6502Parser.LOCAL) | (1 << K2Asm6502Parser.EXPORT) | (1 << K2Asm6502Parser.ATSIGN) | (1 << K2Asm6502Parser.ORG) | (1 << K2Asm6502Parser.BYTE) | (1 << K2Asm6502Parser.WORD) | (1 << K2Asm6502Parser.ALIGN))) !== 0) || ((((_la - 32)) & ~0x1f) == 0 && ((1 << (_la - 32)) & ((1 << (K2Asm6502Parser.BUF - 32)) | (1 << (K2Asm6502Parser.ENC - 32)) | (1 << (K2Asm6502Parser.ENCODING - 32)) | (1 << (K2Asm6502Parser.ENUM - 32)) | (1 << (K2Asm6502Parser.REQUIRE - 32)) | (1 << (K2Asm6502Parser.INCBIN - 32)) | (1 << (K2Asm6502Parser.BLOCK_OPEN - 32)) | (1 << (K2Asm6502Parser.SHELL_OPEN - 32)) | (1 << (K2Asm6502Parser.COMMENT_OPEN - 32)) | (1 << (K2Asm6502Parser.OPC_REL - 32)) | (1 << (K2Asm6502Parser.OPC_1 - 32)) | (1 << (K2Asm6502Parser.OPC_JMP - 32)) | (1 << (K2Asm6502Parser.OPC_0 - 32)) | (1 << (K2Asm6502Parser.OPC_2 - 32)) | (1 << (K2Asm6502Parser.ID - 32)))) !== 0)) {
 	            this.state = 44;
 	            this.line();
 	            this.state = 49;
@@ -505,7 +506,7 @@ export default class K2Asm6502Parser extends antlr4.Parser {
 	            this.state = 81;
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
-	            while((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << K2Asm6502Parser.OPEN_CURLY) | (1 << K2Asm6502Parser.SCOPE) | (1 << K2Asm6502Parser.GLOBAL) | (1 << K2Asm6502Parser.LOCAL) | (1 << K2Asm6502Parser.EXPORT) | (1 << K2Asm6502Parser.ATSIGN) | (1 << K2Asm6502Parser.ORG) | (1 << K2Asm6502Parser.BYTE) | (1 << K2Asm6502Parser.WORD) | (1 << K2Asm6502Parser.ALIGN))) !== 0) || ((((_la - 32)) & ~0x1f) == 0 && ((1 << (_la - 32)) & ((1 << (K2Asm6502Parser.BUF - 32)) | (1 << (K2Asm6502Parser.ENC - 32)) | (1 << (K2Asm6502Parser.ENCODING - 32)) | (1 << (K2Asm6502Parser.ENUM - 32)) | (1 << (K2Asm6502Parser.REQUIRE - 32)) | (1 << (K2Asm6502Parser.INCBIN - 32)) | (1 << (K2Asm6502Parser.BLOCK_OPEN - 32)) | (1 << (K2Asm6502Parser.SHELL_OPEN - 32)) | (1 << (K2Asm6502Parser.COMMENT_OPEN - 32)) | (1 << (K2Asm6502Parser.ID - 32)) | (1 << (K2Asm6502Parser.OPC_REL - 32)) | (1 << (K2Asm6502Parser.OPC_1 - 32)) | (1 << (K2Asm6502Parser.OPC_JMP - 32)) | (1 << (K2Asm6502Parser.OPC_0 - 32)) | (1 << (K2Asm6502Parser.OPC_2 - 32)))) !== 0)) {
+	            while((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << K2Asm6502Parser.OPEN_CURLY) | (1 << K2Asm6502Parser.SCOPE) | (1 << K2Asm6502Parser.GLOBAL) | (1 << K2Asm6502Parser.LOCAL) | (1 << K2Asm6502Parser.EXPORT) | (1 << K2Asm6502Parser.ATSIGN) | (1 << K2Asm6502Parser.ORG) | (1 << K2Asm6502Parser.BYTE) | (1 << K2Asm6502Parser.WORD) | (1 << K2Asm6502Parser.ALIGN))) !== 0) || ((((_la - 32)) & ~0x1f) == 0 && ((1 << (_la - 32)) & ((1 << (K2Asm6502Parser.BUF - 32)) | (1 << (K2Asm6502Parser.ENC - 32)) | (1 << (K2Asm6502Parser.ENCODING - 32)) | (1 << (K2Asm6502Parser.ENUM - 32)) | (1 << (K2Asm6502Parser.REQUIRE - 32)) | (1 << (K2Asm6502Parser.INCBIN - 32)) | (1 << (K2Asm6502Parser.BLOCK_OPEN - 32)) | (1 << (K2Asm6502Parser.SHELL_OPEN - 32)) | (1 << (K2Asm6502Parser.COMMENT_OPEN - 32)) | (1 << (K2Asm6502Parser.OPC_REL - 32)) | (1 << (K2Asm6502Parser.OPC_1 - 32)) | (1 << (K2Asm6502Parser.OPC_JMP - 32)) | (1 << (K2Asm6502Parser.OPC_0 - 32)) | (1 << (K2Asm6502Parser.OPC_2 - 32)) | (1 << (K2Asm6502Parser.ID - 32)))) !== 0)) {
 	                this.state = 78;
 	                this.line();
 	                this.state = 83;
@@ -535,7 +536,7 @@ export default class K2Asm6502Parser extends antlr4.Parser {
 	            this.state = 94;
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
-	            while((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << K2Asm6502Parser.OPEN_CURLY) | (1 << K2Asm6502Parser.SCOPE) | (1 << K2Asm6502Parser.GLOBAL) | (1 << K2Asm6502Parser.LOCAL) | (1 << K2Asm6502Parser.EXPORT) | (1 << K2Asm6502Parser.ATSIGN) | (1 << K2Asm6502Parser.ORG) | (1 << K2Asm6502Parser.BYTE) | (1 << K2Asm6502Parser.WORD) | (1 << K2Asm6502Parser.ALIGN))) !== 0) || ((((_la - 32)) & ~0x1f) == 0 && ((1 << (_la - 32)) & ((1 << (K2Asm6502Parser.BUF - 32)) | (1 << (K2Asm6502Parser.ENC - 32)) | (1 << (K2Asm6502Parser.ENCODING - 32)) | (1 << (K2Asm6502Parser.ENUM - 32)) | (1 << (K2Asm6502Parser.REQUIRE - 32)) | (1 << (K2Asm6502Parser.INCBIN - 32)) | (1 << (K2Asm6502Parser.BLOCK_OPEN - 32)) | (1 << (K2Asm6502Parser.SHELL_OPEN - 32)) | (1 << (K2Asm6502Parser.COMMENT_OPEN - 32)) | (1 << (K2Asm6502Parser.ID - 32)) | (1 << (K2Asm6502Parser.OPC_REL - 32)) | (1 << (K2Asm6502Parser.OPC_1 - 32)) | (1 << (K2Asm6502Parser.OPC_JMP - 32)) | (1 << (K2Asm6502Parser.OPC_0 - 32)) | (1 << (K2Asm6502Parser.OPC_2 - 32)))) !== 0)) {
+	            while((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << K2Asm6502Parser.OPEN_CURLY) | (1 << K2Asm6502Parser.SCOPE) | (1 << K2Asm6502Parser.GLOBAL) | (1 << K2Asm6502Parser.LOCAL) | (1 << K2Asm6502Parser.EXPORT) | (1 << K2Asm6502Parser.ATSIGN) | (1 << K2Asm6502Parser.ORG) | (1 << K2Asm6502Parser.BYTE) | (1 << K2Asm6502Parser.WORD) | (1 << K2Asm6502Parser.ALIGN))) !== 0) || ((((_la - 32)) & ~0x1f) == 0 && ((1 << (_la - 32)) & ((1 << (K2Asm6502Parser.BUF - 32)) | (1 << (K2Asm6502Parser.ENC - 32)) | (1 << (K2Asm6502Parser.ENCODING - 32)) | (1 << (K2Asm6502Parser.ENUM - 32)) | (1 << (K2Asm6502Parser.REQUIRE - 32)) | (1 << (K2Asm6502Parser.INCBIN - 32)) | (1 << (K2Asm6502Parser.BLOCK_OPEN - 32)) | (1 << (K2Asm6502Parser.SHELL_OPEN - 32)) | (1 << (K2Asm6502Parser.COMMENT_OPEN - 32)) | (1 << (K2Asm6502Parser.OPC_REL - 32)) | (1 << (K2Asm6502Parser.OPC_1 - 32)) | (1 << (K2Asm6502Parser.OPC_JMP - 32)) | (1 << (K2Asm6502Parser.OPC_0 - 32)) | (1 << (K2Asm6502Parser.OPC_2 - 32)) | (1 << (K2Asm6502Parser.ID - 32)))) !== 0)) {
 	                this.state = 91;
 	                this.line();
 	                this.state = 96;
@@ -1001,7 +1002,7 @@ export default class K2Asm6502Parser extends antlr4.Parser {
 	            _prevctx = localctx;
 	            this.state = 204;
 	            _la = this._input.LA(1);
-	            if(!(((((_la - 16)) & ~0x1f) == 0 && ((1 << (_la - 16)) & ((1 << (K2Asm6502Parser.STAR - 16)) | (1 << (K2Asm6502Parser.MINUS - 16)) | (1 << (K2Asm6502Parser.PLUS - 16)) | (1 << (K2Asm6502Parser.ID - 16)))) !== 0))) {
+	            if(!((((_la) & ~0x1f) == 0 && ((1 << _la) & ((1 << K2Asm6502Parser.STAR) | (1 << K2Asm6502Parser.MINUS) | (1 << K2Asm6502Parser.PLUS))) !== 0) || _la===K2Asm6502Parser.ID)) {
 	            this._errHandler.recoverInline(this);
 	            }
 	            else {
@@ -1907,12 +1908,12 @@ K2Asm6502Parser.SVG_OPEN = 41;
 K2Asm6502Parser.YAML_OPEN = 42;
 K2Asm6502Parser.EPS_OPEN = 43;
 K2Asm6502Parser.COMMENT_OPEN = 44;
-K2Asm6502Parser.ID = 45;
-K2Asm6502Parser.OPC_REL = 46;
-K2Asm6502Parser.OPC_1 = 47;
-K2Asm6502Parser.OPC_JMP = 48;
-K2Asm6502Parser.OPC_0 = 49;
-K2Asm6502Parser.OPC_2 = 50;
+K2Asm6502Parser.OPC_REL = 45;
+K2Asm6502Parser.OPC_1 = 46;
+K2Asm6502Parser.OPC_JMP = 47;
+K2Asm6502Parser.OPC_0 = 48;
+K2Asm6502Parser.OPC_2 = 49;
+K2Asm6502Parser.ID = 50;
 K2Asm6502Parser.DEC = 51;
 K2Asm6502Parser.HEX = 52;
 K2Asm6502Parser.BIN = 53;
