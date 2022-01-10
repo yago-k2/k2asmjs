@@ -7,13 +7,14 @@ import CbmObject from "./memory/CbmObject.js";
 import Scope from "./Scope.js";
 import SymbolTable from "./SymbolTable.js";
 import { ParseTreeWalker } from "antlr4/src/antlr4/tree/Tree.js";
+import opcMap from "./data/6502opcodes.js";
 
 export default class Assembler {
     cbmObject
     globalScope
 
     constructor() {
-
+        
     }
 
     assemble(source) {

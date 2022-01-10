@@ -12,7 +12,7 @@ try {
       result[name]=entry
   }
 //  console.log(result)
-  fs.writeFileSync("../src/data/6502opcodes.json",JSON.stringify(result))
+  fs.writeFileSync("../src/data/6502opcodes.js","export default "+JSON.stringify(result))
 } catch (e) {
   console.log(e);
 }
