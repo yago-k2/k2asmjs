@@ -8,6 +8,6 @@ if(typeof window !== "undefined") {
   let $button=document.querySelector("button")
   $button.onclick=(e)=>{
     asm.assemble($textarea.value+"\n")
-    $output.innerText=asm.cbmObject.getObject()
+    $output.innerText=asm.getObject()
   }
 }

@@ -8,9 +8,10 @@ import Scope from "./Scope.js";
 import SymbolTable from "./SymbolTable.js";
 import { ParseTreeWalker } from "antlr4/src/antlr4/tree/Tree.js";
 import opcMap from "./data/6502opcodes.js";
+import Emitter from "./Emitter.js";
 
 export default class Assembler {
-    cbmObject
+    emitter
     globalScope
 
     constructor() {
@@ -18,7 +19,8 @@ export default class Assembler {
     }
 
     assemble(source) {
-        this.cbmObject=new CbmObject()
+        let cbmObject=new CbmObject()
+        this.emitter=new Emitter(cbmObject)
         this.globalScope=new Scope(null,"",new SymbolTable())
 
         const chars = new antlr4.InputStream(source)
@@ -29,15 +31,20 @@ export default class Assembler {
         const tree = parser.input()
         const walker=new ParseTreeWalker()
         
-        const pass1 = new AsmListener(this.cbmObject,this.globalScope)
+        const pass1 = new AsmListener(this.emitter,this.globalScope)
         walker.walk(pass1,tree)
 
         //2pass asm
-        this.cbmObject=new CbmObject()
+        cbmObject=new CbmObject()
+        this.emitter=new Emitter(cbmObject)
+        
         this.globalScope.nextPass()
-        const pass2 = new AsmListener(this.cbmObject,this.globalScope)
+        const pass2 = new AsmListener(this.emitter,this.globalScope)
         walker.walk(pass2,tree)
         
     }
 
+    getObject() {
+        return this.emitter.getMemory().getObject()
+    }
 }

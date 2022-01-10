@@ -8,14 +8,14 @@ import DNCMap from "./types/DNCMap.js"
 export default class AsmListener extends K2Asm6502ParserListener {
     #currentValue
     valueStack = []
-    cbmObject
+    emitter
     globalScope
     currentScope
     currentModifier = "none"
 
-    constructor(cbmobject, globalScope) {
+    constructor(emitter, globalScope) {
         super()
-        this.cbmObject = cbmobject
+        this.emitter = emitter
         this.globalScope = globalScope
         this.currentScope = this.globalScope
     }
@@ -43,14 +43,14 @@ export default class AsmListener extends K2Asm6502ParserListener {
     exitMulDiv(ctx) { this.exitPlusMinus(ctx) }
 
     exitByte(ctx) {
-        this.valueStack.forEach(v => this.cbmObject.add(v))
+        this.valueStack.forEach(v=>this.emitter.emitDNCByte(v)) //(v => this.cbmObject.add(v))
         this.valueStack = []
     }
 
     exitWord(ctx) {
         this.valueStack.forEach(v => {
-            this.cbmObject.add(arith.calc1("<", v))
-            this.cbmObject.add(arith.calc1(">", v))
+            this.emitter.emitDNCWord(v) //this.cbmObject.add(arith.calc1("<", v))
+            //this.cbmObject.add(arith.calc1(">", v))
         })
         this.valueStack = []
     }
@@ -58,10 +58,12 @@ export default class AsmListener extends K2Asm6502ParserListener {
     exitOrg(ctx) {
         if (this.valueStack.length == 2) {
             let la = this.valueStack.pop()
-            this.cbmObject.setPc(la) //adjust emitter
+            //this.cbmObject.setPc(la) //adjust emitter
+            this.emitter.setPc(la)
         }
         let pc = this.valueStack.pop()
-        this.cbmObject.setPc(pc) //adjust emitter
+        //this.cbmObject.setPc(pc) //adjust emitter
+        this.emitter.setPc(pc)
     }
 
 
@@ -85,7 +87,7 @@ export default class AsmListener extends K2Asm6502ParserListener {
 
     exitLabel(ctx) {
         let name = ctx.ID().getText()
-        let value = this.cbmObject.pc
+        let value = this.emitter.getPc() //this.cbmObject.pc
         this.currentScope.put(name, value, false)
     }
 
@@ -128,26 +130,26 @@ export default class AsmListener extends K2Asm6502ParserListener {
 
     enterUnnamedScope(ctx) {
         let scope = new Scope(this.currentScope, "", new SymbolTable())
-        scope.pc = this.cbmObject.pc
+        scope.pc = this.emitter.getPc()
         this.currentScope.addChildren(scope)
         this.currentScope = scope
-        this.currentScope.put("_cont", this.cbmObject.pc, false)
+        this.currentScope.put("_cont", this.emitter.getPc(), false)
     }
     exitUnnamedScope(ctx) {
-        this.currentScope.put("_break", this.cbmObject.pc, false)
+        this.currentScope.put("_break", this.emitter.getPc(), false)
         this.currentScope = this.currentScope.parent
     }
 
     enterNamedScope(ctx) {
         let name = ctx.children[1].getText()
         let scope = new Scope(this.currentScope, name, new SymbolTable())
-        scope.pc = new DNCNumber(16, this.cbmObject.pc.val)
+        scope.pc = new DNCNumber(16, this.emitter.getPc().val)
         this.currentScope.addChildren(scope)
         this.currentScope = scope
-        this.currentScope.put("_cont", this.cbmObject.pc, false)
+        this.currentScope.put("_cont", this.emitter.getPc(), false)
     }
     exitNamedScope(ctx) {
-        let pc = this.cbmObject.pc
+        let pc = this.emitter.getPc()
         this.currentScope.put("_break", pc, false)
         this.currentScope.put("_end", pc, false)
         this.currentScope = this.currentScope.parent

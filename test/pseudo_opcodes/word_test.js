@@ -5,7 +5,7 @@ describe(".word",()=>{
         it("just some binary words", () => {
             let asm = new Assembler()
             asm.assemble(".word %1,%10,%11\n")
-            assert.deepEqual(asm.cbmObject.getObject(), [0, 16, 1,0,2, 0,3,0])
+            assert.deepEqual(asm.getObject(), [0, 16, 1,0,2, 0,3,0])
         })
 
     

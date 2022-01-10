@@ -12,7 +12,7 @@ describe("labels",()=>{
             label=$d000
             .word label
         `)
-        let actual=asm.cbmObject.getObject()
+        let actual=asm.getObject()
         assert.deepEqual(actual,[0,192,0,208])
     })
     it("forward assignment",()=>{
@@ -23,7 +23,7 @@ describe("labels",()=>{
         label=42
         `)
 
-        let actual=asm.cbmObject.getObject()
+        let actual=asm.getObject()
         assert.deepEqual(actual,[0,192,42])
     })
 
@@ -40,7 +40,7 @@ describe("labels",()=>{
         assert.deepEqual(asm.globalScope.getVal("vic"),expected)
         assert.deepEqual(asm.globalScope.getVal("vic").get("spr0x"),value)
 
-        let actual=asm.cbmObject.getObject()
+        let actual=asm.getObject()
         assert.deepEqual(actual,[0,192,0,208])
     })
 
@@ -52,7 +52,7 @@ describe("labels",()=>{
             .byte vic.spr0x.DEFAULT.value
         `)
 
-        let actual=asm.cbmObject.getObject()
+        let actual=asm.getObject()
         assert.deepEqual(actual,[0,192,128])
     })
 
@@ -64,7 +64,7 @@ describe("labels",()=>{
         }
         .byte peter
         `)
-        let actual=asm.cbmObject.getObject()
+        let actual=asm.getObject()
         assert.deepEqual(actual,[0,16,1])
     })
 
@@ -76,7 +76,7 @@ describe("labels",()=>{
         }
         .byte benamst.peter
         `)
-        let actual=asm.cbmObject.getObject()
+        let actual=asm.getObject()
         assert.deepEqual(actual,[0,16,1])
     })
 
