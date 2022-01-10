@@ -37,8 +37,8 @@ describe("labels",()=>{
         let value=DNCNumber.parse("$d000")
         let expected=new DNCMap()
         expected.put("spr0x",value)
-        assert.deepEqual(asm.globalScope.get("vic"),expected)
-        assert.deepEqual(asm.globalScope.get("vic").get("spr0x"),value)
+        assert.deepEqual(asm.globalScope.getVal("vic"),expected)
+        assert.deepEqual(asm.globalScope.getVal("vic").get("spr0x"),value)
 
         let actual=asm.cbmObject.getObject()
         assert.deepEqual(actual,[0,192,0,208])
@@ -54,6 +54,44 @@ describe("labels",()=>{
 
         let actual=asm.cbmObject.getObject()
         assert.deepEqual(actual,[0,192,128])
+    })
+
+    it("local label",()=>{
+        let asm=new Assembler()
+        asm.assemble(`
+        .scope benamst {
+            .local peter=1
+        }
+        .byte peter
+        `)
+        let actual=asm.cbmObject.getObject()
+        assert.deepEqual(actual,[0,16,1])
+    })
+
+    it("global label",()=>{
+        let asm=new Assembler()
+        asm.assemble(`
+        .scope benamst {
+            .global peter=1
+        }
+        .byte benamst.peter
+        `)
+        //console.log("globalscope=",asm.globalScope.toString())
+        let actual=asm.cbmObject.getObject()
+        assert.deepEqual(actual,[0,16,1])
+    })
+
+    it("global vs local label",()=>{
+        let asm=new Assembler()
+        assert.throws(()=>{
+            asm.assemble(`
+            .scope benamst {
+                .global peter=1
+                emily=42
+            }
+            .byte benamst.emily
+            `)
+        },Error("cant access benamst.emily"))
     })
 
 })

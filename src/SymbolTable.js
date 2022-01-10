@@ -30,8 +30,12 @@ export default class SymbolTable {
         }
     }
 
-    get(name) {
+    getVal(name) {
         return this.#symbolTable.get(name).val
+    }
+
+    get(name) {
+        return this.#symbolTable.get(name)
     }
 
     hasNew(name) { 

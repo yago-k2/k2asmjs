@@ -108,6 +108,11 @@ describe("arithmetics", () => {
             let expected = DNCNumber.parse("$34")
             assert.deepEqual(actual, expected)
         })
+        it("<$1000", () => {
+            let actual = arith.calc1("<", DNCNumber.parse("$1000"))
+            let expected = DNCNumber.parse("$00")
+            assert.deepEqual(actual, expected)
+        })
     })
 
     describe("highbyte",() => {
@@ -116,6 +121,12 @@ describe("arithmetics", () => {
             let expected = DNCNumber.parse("$12")
             assert.deepEqual(actual, expected)
         })
+        it(">$1000",() => {
+            let actual = arith.calc1(">", DNCNumber.parse("$1000"))
+            let expected = DNCNumber.parse("$10")
+            assert.deepEqual(actual, expected)
+        })
+
     })
 
 })

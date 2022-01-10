@@ -4,6 +4,9 @@ export default class Arith {
     
     static calc1(op,left) {
         let val,dnc
+        if(typeof left=="number") {
+            throw Error("please gimme DNC")
+        }
         switch(op) {
             case "<":
                 val=left.val&255

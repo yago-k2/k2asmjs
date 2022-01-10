@@ -83,18 +83,6 @@ describe("assembler", () => {
             let actual=asm.cbmObject.getObject()
             assert.deepEqual(actual,[0,16,0,16])
         })
-        it("access inside named scope",()=>{
-            let asm=new Assembler()
-            asm.assemble(`
-            .scope benamst {
-                .local peter=1
-            }
-            .byte peter
-            `)
-            console.log(asm.globalScope.symbolTable.toString())
-            let actual=asm.cbmObject.getObject()
-            assert.deepEqual(actual,[0,16,1])
-        })
         it("scope inside scope",()=>{
             let asm=new Assembler()
             asm.assemble(`

@@ -11,7 +11,7 @@ describe("scope",()=>{
             let name="loop"
             let value=DNCNumber.parse("$1001")
             scope.put(name,value,false)
-            let actual=scope.get(name)
+            let actual=scope.getVal(name)
             assert.deepEqual(actual,value)
         })
         it("put/get in inner scope",()=>{
@@ -20,7 +20,7 @@ describe("scope",()=>{
             let name="loop"
             let value=DNCNumber.parse("$1001")
             globalScope.put(name,value,false)
-            let actual=innerScope.get(name)
+            let actual=innerScope.getVal(name)
             assert.deepEqual(actual,value)
 
         })

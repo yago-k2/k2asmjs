@@ -67,7 +67,7 @@ export default class AsmListener extends K2Asm6502ParserListener {
 
     exitIdentifier(ctx) {
         let name = ctx.children[0].getText()
-        let value = this.currentScope.get(name)
+        let value = this.currentScope.getVal(name)
         if (value == null) {
             value = DNCNumber.parse(142) //doesnt matter, any valid value
         }
@@ -76,7 +76,7 @@ export default class AsmListener extends K2Asm6502ParserListener {
 
     exitDot(ctx) {
         let allIds = ctx.ID().map(e => e.getText())
-        let value = this.currentScope.get(allIds)
+        let value = this.currentScope.getVal(allIds)
         if (value == null) value = DNCNumber.parse(143) // doesnt matter
 
         this.valueStack.push(value)
@@ -91,23 +91,20 @@ export default class AsmListener extends K2Asm6502ParserListener {
 
     exitLocalModifier(ctx) {
         this.currentModifier = "local"
-        console.log("found .local")
     }
     exitGlobalModifier(ctx) { this.currentModifier = "global" }
     exitExportModifier(ctx) { this.currentModifier = "export" }
 
     enterSimpleAssign(ctx) { this.currentModifier = "none" }
     exitSimpleAssign(ctx) {
-        
+        let exp=false
         let value = this.valueStack.pop()
-//        console.log("IDlength",ctx.ID().length)
-//        console.log("id",ctx.ID()[0].getText())
         let name = ctx.ID()[0].getText()
-        let nrComponents = ctx.ID().length //ctx.children.length - 2 //"=",val
+        let nrComponents = ctx.ID().length
         let scope = this.currentScope
 
         if (this.currentModifier == "local") scope = this.currentScope.parent
-
+        if (this.currentModifier == "global") exp=true
         //check if name is in scope
         if (scope.hasNew(name)) {
             //if its a map, set that value
@@ -116,14 +113,14 @@ export default class AsmListener extends K2Asm6502ParserListener {
         }
         else {
             if (nrComponents == 1) {
-                scope.put(name, value, false)
+                scope.put(name, value, exp)
             }
             else {
                 //we have trailing components
                 //create a dncmap, store value
                 let map = new DNCMap()
                 map.put(ctx.ID()[1], value)
-                scope.put(name, map, false)
+                scope.put(name, map, exp)
             }
         }
 
