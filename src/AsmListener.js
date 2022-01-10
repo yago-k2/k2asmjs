@@ -157,14 +157,14 @@ export default class AsmListener extends K2Asm6502ParserListener {
     exitImplied(ctx) {
         let name=ctx.children[0].getText()
         this.opcodeHelper.imp(name)
-        //this.emitter.emitByte(opcMap[name].imp)
     }
     exitImm(ctx) {
         let name=ctx.children[0].getText()
         this.opcodeHelper.imm(name,this.valueStack.pop())
-        //this.emitter.emitByte(opcMap[name].imm)
-        //this.emitter.emitDNCByte(this.valueStack.pop())
     }
-
+    exitRel(ctx) {
+        let name=ctx.children[0].getText()
+        this.opcodeHelper.rel(name,this.valueStack.pop(),this.emitter.getPc())
+    }
 
 }

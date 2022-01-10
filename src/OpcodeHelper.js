@@ -15,4 +15,11 @@ export default class OpcodeHelper {
         this.emitter.emitByte(opcMap[name].imm)
         this.emitter.emitDNCByte(value)
     }
+    rel(name,value,pc) {
+        this.emitter.emitByte(opcMap[name].rel)
+        let out=value.val-(pc.val+2)
+        if(out>127 || out<-128) throw Error("branch too long")
+        this.emitter.emitByte(out)
+        if((out+pc.val)>>8!=pc.val>>8) throw Error("WARNING! branch crosses page")
+    }
 }

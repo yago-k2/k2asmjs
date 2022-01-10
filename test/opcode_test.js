@@ -22,5 +22,11 @@ describe("opcodes",()=>{
         `)
         assert.deepEqual(asm.getObject(),[0,16,169,0])
     })
-
+    it("relative",()=>{
+        let asm=new Assembler()
+        asm.assemble(`
+            loop: bne loop
+        `)
+        assert.deepEqual(asm.getObject(),[0,16,208,256-2])
+    })
 })
