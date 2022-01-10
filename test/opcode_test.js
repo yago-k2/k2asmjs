@@ -35,12 +35,26 @@ describe("opcodes",()=>{
         `)
         assert.deepEqual(asm.getObject(),[0,16,189,0,4])
     })
+    it("indexX ZP",()=>{
+        let asm=new Assembler()
+        asm.assemble(`
+        lda 24,x
+        `)
+        assert.deepEqual(asm.getObject(),[0,16,181,24])
+    })
     it("indexY",()=>{
         let asm=new Assembler()
         asm.assemble(`
-        lda 1024,y
+        ldx 1024,y
         `)
-        assert.deepEqual(asm.getObject(),[0,16,185,0,4])
+        assert.deepEqual(asm.getObject(),[0,16,190,0,4])
+    })
+    it("indexY ZP",()=>{
+        let asm=new Assembler()
+        asm.assemble(`
+        ldx 10,y
+        `)
+        assert.deepEqual(asm.getObject(),[0,16,182,10])
     })
     it("immediate",()=>{
         let asm=new Assembler()

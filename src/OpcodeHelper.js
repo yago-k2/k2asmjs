@@ -45,6 +45,7 @@ export default class OpcodeHelper {
     }
 
     indYAbsOrZp(name,value) {
+        console.log("bits=",value.bits)
         if(value.bits==8 && opcMap[name].zpy) {
             this.emitter.emitByte(opcMap[name].zpy)
             this.emitter.emitDNCByte(value)
