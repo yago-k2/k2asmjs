@@ -12,6 +12,7 @@ export default class AsmListener extends K2Asm6502ParserListener {
     globalScope
     currentScope
     currentModifier = "none"
+    currentMap
     opcodeHelper
 
     constructor(emitter, globalScope, opcodeHelper) {
@@ -179,4 +180,27 @@ export default class AsmListener extends K2Asm6502ParserListener {
             this.opcodeHelper.indYAbsOrZp(name,this.valueStack.pop())
         }
     }
+    exitIndX(ctx) {
+        let name=ctx.children[0].getText()
+        this.opcodeHelper.indirectX(name,this.valueStack.pop())
+    }
+    exitIndY(ctx) {
+        let name=ctx.children[0].getText()
+        this.opcodeHelper.indirectY(name,this.valueStack.pop())
+    }
+    exitJmpInd(ctx) {
+        let name=ctx.children[0].getText()
+        this.opcodeHelper.indirect(name,this.valueStack.pop())
+    }
+
+    enterMap(ctx){
+        this.currentMap=new DNCMap()
+    }
+    exitMap(ctx) {
+        this.#currentValue=this.currentMap
+    }
+    exitPair(ctx) {
+        this.currentMap.put(ctx.key().getText(),this.valueStack.pop())
+    }
+
 }

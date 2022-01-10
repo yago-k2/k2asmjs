@@ -56,6 +56,21 @@ describe("opcodes",()=>{
         `)
         assert.deepEqual(asm.getObject(),[0,16,182,10])
     })
+    it("indirect x",()=>{
+        let asm=new Assembler()
+        asm.assemble(`lda ($fe,x)`)
+        assert.deepEqual(asm.getObject(),[0,16,161,254])
+    })
+    it("indirect y",()=>{
+        let asm=new Assembler()
+        asm.assemble(`lda ($fe),y`)
+        assert.deepEqual(asm.getObject(),[0,16,177,254])
+    })
+    it("indirect",()=>{
+        let asm=new Assembler()
+        asm.assemble("jmp ($fffe)")
+        assert.deepEqual(asm.getObject(),[0,16,108,0xfe,0xff])
+    })
     it("immediate",()=>{
         let asm=new Assembler()
         asm.assemble(`
