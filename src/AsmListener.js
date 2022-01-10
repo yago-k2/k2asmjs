@@ -4,6 +4,7 @@ import arith from "./Arith.js"
 import SymbolTable from "./SymbolTable.js"
 import Scope from "./Scope.js"
 import DNCMap from "./types/DNCMap.js"
+import DNCList from "./types/DNCList.js"
 
 export default class AsmListener extends K2Asm6502ParserListener {
     #currentValue
@@ -14,13 +15,15 @@ export default class AsmListener extends K2Asm6502ParserListener {
     currentModifier = "none"
     currentMap
     opcodeHelper
+    insideList = false
+    currentList
 
     constructor(emitter, globalScope, opcodeHelper) {
         super()
         this.emitter = emitter
         this.globalScope = globalScope
         this.currentScope = this.globalScope
-        this.opcodeHelper=opcodeHelper
+        this.opcodeHelper = opcodeHelper
     }
 
     exitBin(ctx) {
@@ -33,7 +36,12 @@ export default class AsmListener extends K2Asm6502ParserListener {
         this.#currentValue = DNCNumber.parse(ctx.HEX().getText())
     }
     exitNumber(ctx) {
-        this.valueStack.push(this.#currentValue)
+        if (this.insideList) {
+            this.currentList.push(this.#currentValue)
+        }
+        else {
+            this.valueStack.push(this.#currentValue)
+        }
     }
 
 
@@ -45,8 +53,10 @@ export default class AsmListener extends K2Asm6502ParserListener {
     }
     exitMulDiv(ctx) { this.exitPlusMinus(ctx) }
 
+
     exitByte(ctx) {
-        this.valueStack.forEach(v=>this.emitter.emitDNCByte(v))
+//        this.valueStack.forEach(v => this.emitter.emitDNCByte(v))
+        this.valueStack.forEach(v => this.emitter.emit8(v))
         this.valueStack = []
     }
 
@@ -99,14 +109,14 @@ export default class AsmListener extends K2Asm6502ParserListener {
 
     enterSimpleAssign(ctx) { this.currentModifier = "none" }
     exitSimpleAssign(ctx) {
-        let exp=false
+        let exp = false
         let value = this.valueStack.pop()
         let name = ctx.ID()[0].getText()
         let nrComponents = ctx.ID().length
         let scope = this.currentScope
 
         if (this.currentModifier == "local") scope = this.currentScope.parent
-        if (this.currentModifier == "global") exp=true
+        if (this.currentModifier == "global") exp = true
         //check if name is in scope
         if (scope.hasNew(name)) {
             //if its a map, set that value
@@ -156,51 +166,59 @@ export default class AsmListener extends K2Asm6502ParserListener {
     }
 
     exitImplied(ctx) {
-        let name=ctx.children[0].getText()
+        let name = ctx.children[0].getText()
         this.opcodeHelper.imp(name)
     }
     exitImm(ctx) {
-        let name=ctx.children[0].getText()
-        this.opcodeHelper.imm(name,this.valueStack.pop())
+        let name = ctx.children[0].getText()
+        this.opcodeHelper.imm(name, this.valueStack.pop())
     }
     exitRel(ctx) {
-        let name=ctx.children[0].getText()
-        this.opcodeHelper.rel(name,this.valueStack.pop(),this.emitter.getPc())
+        let name = ctx.children[0].getText()
+        this.opcodeHelper.rel(name, this.valueStack.pop(), this.emitter.getPc())
     }
     exitAbsOrZp(ctx) {
-        let name=ctx.children[0].getText()
-        this.opcodeHelper.absOrZp(name,this.valueStack.pop())
+        let name = ctx.children[0].getText()
+        this.opcodeHelper.absOrZp(name, this.valueStack.pop())
     }
     exitIndexed(ctx) {
-        let name=ctx.children[0].getText()
-        if(ctx.children[3].getText()=="x") {
-            this.opcodeHelper.indXAbsOrZp(name,this.valueStack.pop())
+        let name = ctx.children[0].getText()
+        if (ctx.children[3].getText() == "x") {
+            this.opcodeHelper.indXAbsOrZp(name, this.valueStack.pop())
         }
         else {
-            this.opcodeHelper.indYAbsOrZp(name,this.valueStack.pop())
+            this.opcodeHelper.indYAbsOrZp(name, this.valueStack.pop())
         }
     }
     exitIndX(ctx) {
-        let name=ctx.children[0].getText()
-        this.opcodeHelper.indirectX(name,this.valueStack.pop())
+        let name = ctx.children[0].getText()
+        this.opcodeHelper.indirectX(name, this.valueStack.pop())
     }
     exitIndY(ctx) {
-        let name=ctx.children[0].getText()
-        this.opcodeHelper.indirectY(name,this.valueStack.pop())
+        let name = ctx.children[0].getText()
+        this.opcodeHelper.indirectY(name, this.valueStack.pop())
     }
     exitJmpInd(ctx) {
-        let name=ctx.children[0].getText()
-        this.opcodeHelper.indirect(name,this.valueStack.pop())
+        let name = ctx.children[0].getText()
+        this.opcodeHelper.indirect(name, this.valueStack.pop())
     }
 
-    enterMap(ctx){
-        this.currentMap=new DNCMap()
+    enterMap(ctx) {
+        this.currentMap = new DNCMap()
     }
     exitMap(ctx) {
-        this.#currentValue=this.currentMap
+        this.#currentValue = this.currentMap
     }
     exitPair(ctx) {
-        this.currentMap.put(ctx.key().getText(),this.valueStack.pop())
+        this.currentMap.put(ctx.key().getText(), this.valueStack.pop())
     }
 
+    enterArray(ctx) {
+        this.currentList = new DNCList()
+        this.insideList = true
+    }
+    exitArray(ctx) {
+        this.#currentValue = this.currentList
+        this.insideList = false
+    }
 }

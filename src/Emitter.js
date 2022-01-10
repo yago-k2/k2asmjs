@@ -1,5 +1,6 @@
 import arith from "./Arith.js"
 import DNCNumber from "./types/DNCNumber.js"
+import DNCList from "./types/DNCList.js"
 
 export default class Emitter {
     #memory
@@ -13,6 +14,18 @@ export default class Emitter {
         this.#memory.setPc(pc)
     }
     getPc() { return this.#memory.pc}
+
+    emit8(value) {
+        if(value instanceof DNCList) {
+            this.emitDNCList8(value)
+            return
+        }
+        if(value instanceof DNCNumber) {
+            this.emitDNCByte(value)
+            return
+        }
+        throw Error("its something strange:",value)
+    }
 
     emitByte(byte) {
         this.emitDNCByte(new DNCNumber(8,byte))
@@ -28,4 +41,10 @@ export default class Emitter {
         this.emitDNCByte(arith.calc1(">",dncword))
     }
 
+    emitDNCList8(list) {
+        //DNCList should be iterator...
+        for(let b of list.list) {
+            this.emit8(b)
+        }
+    }
 }
