@@ -7,10 +7,17 @@ export default class DNCNumber {
     dnc
 
     constructor(...args) {
-        if (args.length < 2) throw Error("implement me")
+        if (args.length < 2) {
+            return new DNCNumber(DNCNumber.calcBits(args),args)
+         //   throw Error("implement me")
+        }
         this.bits = args[0]
         if (typeof args[1] == "number") this.val = args[1]
         if (args[2] != undefined) this.dnc = args[2]
+    }
+
+    toIntValue() {
+        return this.val
     }
 
     toString() {
@@ -56,7 +63,8 @@ export default class DNCNumber {
         if (typeof arg == "string") {
             throw Error("implement me")
         }
-        throw Error("polymorph error")
+        
+        throw Error("polymorph error"+typeof arg)
     }
 
     static parse(string) {

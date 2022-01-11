@@ -5,6 +5,7 @@ import SymbolTable from "./SymbolTable.js"
 import Scope from "./Scope.js"
 import DNCMap from "./types/DNCMap.js"
 import DNCList from "./types/DNCList.js"
+import Script from "./Script.js"
 
 export default class AsmListener extends K2Asm6502ParserListener {
     #currentValue
@@ -17,6 +18,8 @@ export default class AsmListener extends K2Asm6502ParserListener {
     opcodeHelper
     insideList = false
     currentList
+    doEncode
+    script
 
     constructor(emitter, globalScope, opcodeHelper) {
         super()
@@ -24,7 +27,10 @@ export default class AsmListener extends K2Asm6502ParserListener {
         this.globalScope = globalScope
         this.currentScope = this.globalScope
         this.opcodeHelper = opcodeHelper
+        this.script=new Script()
     }
+
+    // NUMBER
 
     exitBin(ctx) {
         this.#currentValue = DNCNumber.parse(ctx.BIN().getText())
@@ -45,6 +51,8 @@ export default class AsmListener extends K2Asm6502ParserListener {
     }
 
 
+    // ARITHMETICS
+
     exitUnaryMinus(ctx) {
         let left=this.valueStack.pop()
         let op = ctx.children[0]
@@ -64,6 +72,7 @@ export default class AsmListener extends K2Asm6502ParserListener {
     }
     exitMulDiv(ctx) { this.exitPlusMinus(ctx) }
 
+    // PSEUDO OPCODES
 
     exitByte(ctx) {
 //        this.valueStack.forEach(v => this.emitter.emitDNCByte(v))
@@ -87,7 +96,8 @@ export default class AsmListener extends K2Asm6502ParserListener {
         this.emitter.setPc(pc)
     }
 
-
+    // LABELS
+    
     exitIdentifier(ctx) {
         let name = ctx.children[0].getText()
         let value = this.currentScope.getVal(name)
@@ -103,9 +113,9 @@ export default class AsmListener extends K2Asm6502ParserListener {
         if (value == null) value = DNCNumber.parse(143) // doesnt matter
 
         this.valueStack.push(value)
-
     }
 
+    
     exitLabel(ctx) {
         let name = ctx.ID().getText()
         let value = this.emitter.getPc()
@@ -149,6 +159,8 @@ export default class AsmListener extends K2Asm6502ParserListener {
 
     }
 
+    // SCOPES
+
     enterUnnamedScope(ctx) {
         let scope = new Scope(this.currentScope, "", new SymbolTable())
         scope.pc = this.emitter.getPc()
@@ -176,6 +188,7 @@ export default class AsmListener extends K2Asm6502ParserListener {
         this.currentScope = this.currentScope.parent
     }
 
+    // OPCODES
     exitImplied(ctx) {
         let name = ctx.children[0].getText()
         this.opcodeHelper.imp(name)
@@ -214,6 +227,7 @@ export default class AsmListener extends K2Asm6502ParserListener {
         this.opcodeHelper.indirect(name, this.valueStack.pop())
     }
 
+    // MAP
     enterMap(ctx) {
         this.currentMap = new DNCMap()
     }
@@ -224,6 +238,7 @@ export default class AsmListener extends K2Asm6502ParserListener {
         this.currentMap.put(ctx.key().getText(), this.valueStack.pop())
     }
 
+    // ARRAY
     enterArray(ctx) {
         this.currentList = new DNCList()
         this.insideList = true
@@ -231,5 +246,46 @@ export default class AsmListener extends K2Asm6502ParserListener {
     exitArray(ctx) {
         this.#currentValue = this.currentList
         this.insideList = false
+    }
+
+    // FUNCTIONS
+
+    enterScriptExpression(ctx) {
+        this.doEncode=false
+    }
+    exitScriptExpression(ctx) {
+        this.doEncode=true
+        let name=ctx.children[0].getText()
+        let argc=(ctx.children[2].children.length+1)/2
+        let args=[]//new DNCList()
+        while(argc>0) {
+            //args.list[--argc]=this.valueStack.pop()//args.push(this.valueStack.pop())
+            args[--argc]=this.valueStack.pop()//args.push(this.valueStack.pop())
+        }
+        this.functionCall(name,args)
+    }
+    functionCall(name,args) {
+        //console.log(`calling ${name}(${args.toString()})`)
+        let result=this.script.call(name,args)
+        if(typeof result =="string") {
+            this.valueStack.push(result)
+            return
+        }
+        if(typeof result == "number") {
+            this.valueStack.push(new DNCNumber(8,result)) //TODO
+            return
+        }
+            //console.log("result=",result)
+            throw Error("implement me",typeof result)
+    }
+
+    exitEmitblock(ctx) {
+        let text=ctx.children[1].getText()
+        text=text.substring(0,text.length-4) //.end
+        this.script.require(text)
+        // let result=this.script.execute(text)
+        // if(result!=undefined) {
+        //     this.valueStack.push(result) // is that correct?
+        // }
     }
 }

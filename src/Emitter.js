@@ -24,6 +24,12 @@ export default class Emitter {
             this.emitDNCByte(value)
             return
         }
+        if(typeof value=="string") {
+            value.split("").forEach(c=>{
+                this.emitByte(c.charCodeAt(0))
+            })
+            return
+        }
         throw Error("its something strange:",value)
     }
 
