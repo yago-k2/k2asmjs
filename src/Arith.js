@@ -1,3 +1,4 @@
+import DNCList from "./types/DNCList.js"
 import DNCNumber from "./types/DNCNumber.js"
 
 export default class Arith {
@@ -6,6 +7,13 @@ export default class Arith {
         let val,dnc
         if(typeof left=="number") {
             throw Error("please gimme DNC")
+        }
+        if(left instanceof DNCList) {
+            let res=new DNCList()
+            for(let l of left.list) {
+                res.push(this.calc1(op,l))
+            }
+            return res
         }
         switch(op) {
             case "<":

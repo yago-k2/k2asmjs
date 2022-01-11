@@ -10,13 +10,13 @@ describe("DNC Array",()=>{
         `)
         assert.deepEqual(asm.getObject(),[0,16,9,1,2,3])
     })
-    // it("operating on array",()=>{
-    //     let asm=new Assembler()
-    //     asm.assemble(`
-    //     bytes=[200,250,300]
-    //     .byte >bytes
-    //     `)
-    //     assert.deepEqual(asm.getObject(),[0,16,0,0,1])
+    it("operating on array",()=>{
+        let asm=new Assembler()
+        asm.assemble(`
+        bytes=[200,250,300]
+        .byte >bytes
+        `)
+        assert.deepEqual(asm.getObject(),[0,16,0,0,1])
 
-    // })
+    })
 })

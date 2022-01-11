@@ -1,5 +1,6 @@
 import assert from "assert"
 import arith from "../src/Arith.js"
+import DNCList from "../src/types/DNCList.js"
 import DNCNumber from "../src/types/DNCNumber.js"
 
 describe("arithmetics", () => {
@@ -128,5 +129,14 @@ describe("arithmetics", () => {
         })
 
     })
-
+    describe("array arithmetics",()=>{
+        it("highbytes of array",()=>{
+            let list=new DNCList()
+            list.push(DNCNumber.parse(1));list.push(DNCNumber.parse(2)),list.push(DNCNumber.parse(4))
+            let actual = arith.calc1(">",list)
+            let expected = new DNCList()
+            expected.push(DNCNumber.parse(0));expected.push(DNCNumber.parse(0));expected.push(DNCNumber.parse(0))
+            assert.deepEqual(actual,expected)
+        })
+    })
 })
