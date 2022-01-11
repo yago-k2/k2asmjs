@@ -1,17 +1,23 @@
-import {str,hex} from "./data/prelude.js"
+//import prelude from "./data/prelude.txt" //does not work on node atm
 import DNCList from "./types/DNCList.js"
 import DNCNumber from "./types/DNCNumber.js"
+
+const prelude=`
+function str(arg) { return ""+arg }
+function hex(arg) { return arg.toString(16) }
+`
 
 export default class Script {
     reqdText    
     
     constructor() {
         this.reqdText=""
+ //       console.log("str=",str)
     }
 
     call(name,args) {
         let cargs=args.map(c=>this.convToJs(c))
-        let cmd=this.reqdText+`${name}(${cargs})`
+        let cmd=prelude+this.reqdText+`${name}(${cargs})`
         //console.log("cmd=",cmd)
         let res=eval(cmd)
         //console.log("got ",res)
