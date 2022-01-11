@@ -15,7 +15,7 @@ export default class Arith {
             }
             return res
         }
-        switch(op) {
+        switch(""+op) {
             case "<":
                 val=left.val&255
                 dnc=left.dnc&255
@@ -29,7 +29,7 @@ export default class Arith {
                 dnc=left.val
                 break
             default:
-                throw Error("implement me "+op)
+                throw Error(`implement me "${op}",${op==='>'}`)
         }
         return new DNCNumber(DNCNumber.calcBits(val),val,dnc)
     }

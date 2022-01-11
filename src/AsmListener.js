@@ -45,6 +45,17 @@ export default class AsmListener extends K2Asm6502ParserListener {
     }
 
 
+    exitUnaryMinus(ctx) {
+        let left=this.valueStack.pop()
+        let op = ctx.children[0]
+        this.valueStack.push(arith.calc1(op,left))
+    }
+    exitPrefixOp(ctx) {
+        let left=this.valueStack.pop()
+        let op = ctx.children[0]
+        this.valueStack.push(arith.calc1(op,left))
+    }
+
     exitPlusMinus(ctx) {
         let right = this.valueStack.pop()
         let left = this.valueStack.pop()

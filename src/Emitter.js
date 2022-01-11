@@ -41,11 +41,16 @@ export default class Emitter {
         this.emitDNCByte(arith.calc1(">",dncword))
     }
 
+
     emitDNCList8(list) {
-        //DNCList should be iterator...
         for(let b of list.list) {
-            console.log("list has ",b)
             this.emitDNCByte(b)
+        }
+    }
+
+    emitDNCList(list) {
+        for(let b of list.list) {
+            this.emit(b)
         }
     }
 }
