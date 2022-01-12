@@ -17,7 +17,7 @@ export default {
       },
       transform(source, opts) {
         if (opts.url.endsWith('.txt')) {
-          return {
+          return { //TODO (we dont want to log on console, just return that string)
             source: `export default function () {
               console.log(\`${String(source)}\`)
             }`

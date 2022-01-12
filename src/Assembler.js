@@ -13,9 +13,11 @@ import OpcHelper from "./OpcodeHelper.js";
 export default class Assembler {
     emitter
     globalScope
+    options
 
-    constructor() {
-        
+    constructor(options) {
+        let defaults={ticks:50}
+        this.options=Object.assign(defaults,options)
     }
 
     assemble(source) {

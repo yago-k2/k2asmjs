@@ -1,0 +1,4 @@
+.org $c000
+    nop
+    rts
+    

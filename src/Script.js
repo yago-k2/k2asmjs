@@ -12,7 +12,6 @@ export default class Script {
     
     constructor() {
         this.reqdText=""
- //       console.log("str=",str)
     }
 
     call(name,args) {

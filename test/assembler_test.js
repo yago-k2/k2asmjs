@@ -2,6 +2,16 @@ import assert from "assert"
 import Assembler from "../src/Assembler.js"
 
 describe("assembler", () => {
+    describe("options",()=>{
+        it("default ticks",()=>{
+            let asm=new Assembler()
+            assert.equal(asm.options.ticks,50)
+        })
+        it("passing ticks",()=>{
+            let asm=new Assembler({ticks:60})
+            assert.equal(asm.options.ticks,60)
+        })
+    })
     describe("addition",()=>{
         it("1+1",()=>{
             let asm = new Assembler()

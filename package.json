@@ -1,10 +1,11 @@
 {
   "name": "k2asm.js",
-  "version": "1.0.0",
+  "version": "0.1.12",
   "private": true,
   "type": "module",
   "browser": {
-    "fs": false
+    "fs": false,
+    "yargs": false
   },
   "main": "./src/index.mjs",
   "scripts": {
@@ -17,7 +18,8 @@
     "test": "mocha --recursive"
   },
   "dependencies": {
-    "antlr4": "^4.9.3"
+    "antlr4": "^4.9.3",
+    "yargs": "^17.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.16.5",
@@ -34,6 +36,9 @@
     "style-loader": "^3.3.1",
     "webpack": "^5.65.0",
     "webpack-cli": "^4.9.1"
+  },
+  "bin": {
+    "k2asm": "./bin/index.mjs"
   },
   "description": "6502 Assembler by K2"
 }
