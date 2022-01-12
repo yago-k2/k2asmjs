@@ -12,6 +12,20 @@ describe("assembler", () => {
             assert.equal(asm.options.ticks,60)
         })
     })
+    describe("-D on CLI",()=>{
+        it("single define",()=>{
+            let asm=new Assembler({define:"peter=22"})
+            asm.assemble(`
+            .byte peter`)
+            assert.deepEqual(asm.getObject(),[0,16,22])
+        })
+        it("multiple defines",()=>{
+            let asm=new Assembler({define:["peter=22","paul=23"]})
+            asm.assemble(`
+            .byte peter,paul`)
+            assert.deepEqual(asm.getObject(),[0,16,22,23])
+        })
+    })
     describe("addition",()=>{
         it("1+1",()=>{
             let asm = new Assembler()

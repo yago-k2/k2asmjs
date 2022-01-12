@@ -46,6 +46,7 @@ const config = {
   },
   optimization: {
     minimize: true,
+//    usedExports: true,
     minimizer: [new TerserPlugin({
 	minify: TerserPlugin.esbuildMinify,
 	terserOptions: {
