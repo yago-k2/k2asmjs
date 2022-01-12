@@ -1,5 +1,5 @@
 {
-  "name": "k2asm.js",
+  "name": "k2asm",
   "version": "0.1.12",
   "private": true,
   "type": "module",
@@ -38,7 +38,7 @@
     "webpack-cli": "^4.9.1"
   },
   "bin": {
-    "k2asm": "./bin/index.mjs"
+    "k2asm": "./src/index.mjs"
   },
   "description": "6502 Assembler by K2"
 }
