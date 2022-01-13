@@ -1,7 +1,6 @@
 import antlr4 from "antlr4";
 import AsmLexer from "./grammar/K2Asm6502Lexer.js";
 import AsmParser from "./grammar/K2Asm6502Parser.js";
-//import ExprListener from "./grammar/ExprListener.js";
 import AsmListener from "./AsmListener.js";
 import CbmObject from "./memory/CbmObject.js";
 import Scope from "./Scope.js";
@@ -9,7 +8,8 @@ import SymbolTable from "./SymbolTable.js";
 import { ParseTreeWalker } from "antlr4/src/antlr4/tree/Tree.js";
 import Emitter from "./Emitter.js";
 import OpcHelper from "./OpcodeHelper.js";
-import DNCNumber from "./types/DNCNumber.js";
+import parse from "./util/parse.js";
+
 export default class Assembler {
     emitter
     globalScope
@@ -28,8 +28,6 @@ export default class Assembler {
             return
         }
         if (defs) {
-//            let [name,value]=defs.split("=")
-//            st.put(name,DNCNumber.parse(value),false)
             st.parseAssignment(defs)
         }
     }
@@ -44,16 +42,8 @@ export default class Assembler {
         }
         this.globalScope = new Scope(null, "", st)
 
-        const chars = new antlr4.InputStream(source)
-        const lexer = new AsmLexer(chars)
-        const tokens = new antlr4.CommonTokenStream(lexer)
-        const parser = new AsmParser(tokens)
-        parser.buildParseTrees = true
-        const tree = parser.input()
-        const walker = new ParseTreeWalker()
-
         const pass1 = new AsmListener(this.emitter, this.globalScope, opcHelper)
-        walker.walk(pass1, tree)
+        parse(source,pass1,"input")
 
         //2pass asm
         cbmObject = new CbmObject()
@@ -61,8 +51,7 @@ export default class Assembler {
         opcHelper = new OpcHelper(this.emitter)
         this.globalScope.nextPass()
         const pass2 = new AsmListener(this.emitter, this.globalScope, opcHelper)
-        walker.walk(pass2, tree)
-
+        parse(source,pass2,"input")
     }
 
     getObject() {
