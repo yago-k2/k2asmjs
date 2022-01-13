@@ -30,6 +30,10 @@ export default class Scope {
         this.symbolTable.put(name, value, exp)
     }
 
+    reput(name, value, exp) {
+        this.symbolTable.reput(name,value,exp)
+    }
+    
     getRaw(name) {
         if (typeof name == "string") {
             //last part, after all previous dots have been dereferenced

@@ -44,6 +44,10 @@ export default class SymbolTable {
         }
     }
 
+    reput(name,val,exp) {
+        this.#symbolTable.set(name,{val:val,exp,pass:this.#pass})
+    }
+    
     getVal(name) {
         return this.#symbolTable.get(name).val
     }

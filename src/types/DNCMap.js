@@ -1,5 +1,6 @@
 export default class DNCMap {
     #map
+    #pc
 
     constructor() {
         this.#map={}
@@ -13,11 +14,14 @@ export default class DNCMap {
         return result
     }
 
+    setPc(pc) { this.#pc=pc}
+
     put(name,value) {
         this.#map[name]=value
     }
 
     get(name) {
+        if(name==undefined) return this.#pc
         return this.#map[name]
     }
 

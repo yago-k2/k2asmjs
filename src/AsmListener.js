@@ -7,6 +7,7 @@ import DNCMap from "./types/DNCMap.js"
 import DNCList from "./types/DNCList.js"
 import Script from "./Script.js"
 import mapper from "./util/mapper.js"
+import DNCMemory from "./memory/DNCMemory.js"
 
 export default class AsmListener extends K2Asm6502ParserListener {
     #currentValue
@@ -134,6 +135,7 @@ export default class AsmListener extends K2Asm6502ParserListener {
     exitIdentifier(ctx) {
         let name = ctx.children[0].getText()
         let value = this.currentScope.getVal(name) ?? DNCNumber.parse(142) //doesnt matter, any valid value
+        if(value.pc) value=value.pc //map with inherited value
         this.valueStack.push(value)
     }
 
@@ -169,7 +171,36 @@ export default class AsmListener extends K2Asm6502ParserListener {
         //check if name is in scope
         if (scope.hasNew(name)) {
             //if its a map, set that value
-            throw Error("implement me")
+            let map=scope.getVal(name)
+            if(map instanceof DNCMap ) {
+                if(nrComponents==2){
+                    map.put(ctx.ID()[1],value)
+                    return
+                }
+                if(nrComponents==3) {
+                    throw Error("TODO recursion into map/nr")
+                    let map2=map.getVal(ctx.ID()[1])
+                    let rmap=new DNCMap()
+                    rmap.pc=map2
+                    
+                }
+                console.log(`nr2map: ${name}.${ctx.ID()[1]}.${ctx.ID()[2]}`)
+                console.log(`${name}=${map}`)
+                console.log(`${name}.${ctx.ID()[1]}=${map.get(ctx.ID()[1])}`)
+                throw Error(`we need recursion, we have ${nrComponents} components`)
+            }
+            else {
+                //convert number to map with pc as that number
+                let rmap=new DNCMap()
+                rmap.pc=map
+                if(nrComponents==2) {
+                    rmap.put(ctx.ID()[1],value)
+                }
+                scope.reput(name,rmap)
+                return
+                //throw Error("implement number to map")
+            }
+            throw Error(`implement me: ${name}.${ctx.ID()[1]}=${map}`)
             //if its not a map, doubledefinition error
         }
         else {
