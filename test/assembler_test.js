@@ -11,6 +11,25 @@ describe("assembler", () => {
             let asm=new Assembler({ticks:60})
             assert.equal(asm.options.ticks,60)
         })
+        it("using time",()=>{
+            let asm=new Assembler()
+            asm.assemble(`
+            .byte 00:01`)
+            assert.deepEqual(asm.getObject(),[0,16,50])
+        })
+        it("using ntsc time",()=>{
+            let asm=new Assembler({ticks:60})
+            asm.assemble(`
+            .byte 00:01`)
+            assert.deepEqual(asm.getObject(),[0,16,60])
+        })
+        it("using times+frames",()=>{
+            let asm=new Assembler()
+            asm.assemble(`
+            .byte 00:02.1
+            `)
+            assert.deepEqual(asm.getObject(),[0,16,101])
+        })
     })
     describe("-D on CLI",()=>{
         it("single define",()=>{

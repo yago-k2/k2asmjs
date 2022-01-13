@@ -6,7 +6,7 @@ describe("scriptblock",()=>{
         let asm=new Assembler()
         asm.assemble(`
         .begin
-        console.log("hello world")
+        //console.log("hello world")
         .end
         .byte 1
         `)
@@ -43,7 +43,6 @@ describe("scriptblock",()=>{
         data=makeMap()
         .byte data.a,data.b
         `)
-        console.log(asm.globalScope.symbolTable)
         assert.deepEqual(asm.getObject(),[0,16,1,22])
     })
 

@@ -30,7 +30,10 @@ export default class Emitter {
             })
             return
         }
-        throw Error("its something strange:",value)
+        if(value==undefined) {
+            throw Error("dont give me undefined!!")
+        }
+        throw Error("its something strange:"+value)
     }
 
     emitByte(byte) {

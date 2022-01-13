@@ -8,7 +8,7 @@ export default class Mapper {
         if(typeof jsvalue=="string") return jsvalue
         if(jsvalue instanceof Array) return DNCList.from(jsvalue)
         //its a map
-        if(typeof jsvalue =="object") return Mapper.mapToDNCList(jsvalue)
+        if(typeof jsvalue =="object") return Mapper.mapToDNCMap(jsvalue)
         throw Error("something else")
     }
 
@@ -16,7 +16,7 @@ export default class Mapper {
         return new DNCNumber(jsnumber)
     }
 
-    static mapToDNCList(jsobject) {
+    static mapToDNCMap(jsobject) {
         let result=new DNCMap()
         for(let p in jsobject) {
             result.put(p,Mapper.toDNC(jsobject[p]))

@@ -21,6 +21,7 @@ export default class AsmListener extends K2Asm6502ParserListener {
     currentList
     doEncode
     script
+    options
 
     constructor(emitter, globalScope, opcodeHelper) {
         super()
@@ -42,6 +43,40 @@ export default class AsmListener extends K2Asm6502ParserListener {
     exitHex(ctx) {
         this.#currentValue = DNCNumber.parse(ctx.HEX().getText())
     }
+    // MAP
+    enterMap(ctx) {
+        this.currentMap = new DNCMap()
+    }
+    exitMap(ctx) {
+        this.#currentValue = this.currentMap
+    }
+    exitPair(ctx) {
+        this.currentMap.put(ctx.key().getText(), this.valueStack.pop())
+    }
+    // ARRAY
+    enterArray(ctx) {
+        this.currentList = new DNCList()
+        this.insideList = true
+    }
+    exitArray(ctx) {
+        this.#currentValue = this.currentList
+        this.insideList = false
+    }
+
+    // TIME
+    exitTime(ctx) {
+        let text=ctx.TIME().getText()
+        let [minutes,seconds]=text.split(":")
+        this.#currentValue=new DNCNumber( (minutes*60+seconds) * this.options.ticks)
+    }
+
+    exitTimeFrames(ctx) {
+        let text=ctx.getText()
+        let [time,frames]=text.split(".")
+        let [minutes,seconds]=time.split(":")
+        this.#currentValue=new DNCNumber( (minutes*60+seconds) * this.options.ticks + +frames)
+    }
+
     exitNumber(ctx) {
         if (this.insideList) {
             this.currentList.push(this.#currentValue)
@@ -218,27 +253,6 @@ export default class AsmListener extends K2Asm6502ParserListener {
     exitJmpInd(ctx) {
         let name = ctx.children[0].getText()
         this.opcodeHelper.indirect(name, this.valueStack.pop())
-    }
-
-    // MAP
-    enterMap(ctx) {
-        this.currentMap = new DNCMap()
-    }
-    exitMap(ctx) {
-        this.#currentValue = this.currentMap
-    }
-    exitPair(ctx) {
-        this.currentMap.put(ctx.key().getText(), this.valueStack.pop())
-    }
-
-    // ARRAY
-    enterArray(ctx) {
-        this.currentList = new DNCList()
-        this.insideList = true
-    }
-    exitArray(ctx) {
-        this.#currentValue = this.currentList
-        this.insideList = false
     }
 
     // FUNCTIONS

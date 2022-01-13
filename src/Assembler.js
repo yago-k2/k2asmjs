@@ -25,6 +25,8 @@ export default class Assembler {
         this.globalScope = new Scope(null, "", st)
 
         const pass1 = new AsmListener(this.emitter, this.globalScope, opcHelper)
+        pass1.options=this.options
+
         parse(source,pass1,"input")
 
         //2pass asm
@@ -33,6 +35,7 @@ export default class Assembler {
         opcHelper = new OpcHelper(this.emitter)
         this.globalScope.nextPass()
         const pass2 = new AsmListener(this.emitter, this.globalScope, opcHelper)
+        pass2.options=this.options
         parse(source,pass2,"input")
     }
 
