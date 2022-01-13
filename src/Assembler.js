@@ -28,8 +28,9 @@ export default class Assembler {
             return
         }
         if (defs) {
-            let [name,value]=defs.split("=")
-            st.put(name,DNCNumber.parse(value),false)
+//            let [name,value]=defs.split("=")
+//            st.put(name,DNCNumber.parse(value),false)
+            st.parseAssignment(defs)
         }
     }
 
@@ -40,7 +41,6 @@ export default class Assembler {
         let st = new SymbolTable()
         if ("define" in this.options) {
             this.define(st, this.options.define)
-            console.log(st.toString())
         }
         this.globalScope = new Scope(null, "", st)
 

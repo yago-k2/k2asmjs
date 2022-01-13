@@ -25,6 +25,12 @@ describe("assembler", () => {
             .byte peter,paul`)
             assert.deepEqual(asm.getObject(),[0,16,22,23])
         })
+        it("defining an array",()=>{
+            let asm=new Assembler({define:"arr=[1,2,3]"})
+            asm.assemble(`
+            .byte arr,4`)
+            assert.deepEqual(asm.getObject(),[0,16,1,2,3,4])
+        })
     })
     describe("addition",()=>{
         it("1+1",()=>{

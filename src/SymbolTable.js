@@ -1,3 +1,5 @@
+import AssignParser from "./AssignParser.js"
+
 export default class SymbolTable {
     #symbolTable
     #pass
@@ -5,6 +7,11 @@ export default class SymbolTable {
     constructor() {
         this.#symbolTable=new Map()
         this.#pass=1
+    }
+
+    parseAssignment(source) {
+        let parser=new AssignParser(this)
+        parser.parse(source)
     }
 
     nextPass() { this.#pass++}
