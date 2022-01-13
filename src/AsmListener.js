@@ -6,6 +6,7 @@ import Scope from "./Scope.js"
 import DNCMap from "./types/DNCMap.js"
 import DNCList from "./types/DNCList.js"
 import Script from "./Script.js"
+import mapper from "./util/mapper.js"
 
 export default class AsmListener extends K2Asm6502ParserListener {
     #currentValue
@@ -27,7 +28,7 @@ export default class AsmListener extends K2Asm6502ParserListener {
         this.globalScope = globalScope
         this.currentScope = this.globalScope
         this.opcodeHelper = opcodeHelper
-        this.script=new Script()
+        this.script = new Script()
     }
 
     // NUMBER
@@ -54,14 +55,12 @@ export default class AsmListener extends K2Asm6502ParserListener {
     // ARITHMETICS
 
     exitUnaryMinus(ctx) {
-        let left=this.valueStack.pop()
+        let left = this.valueStack.pop()
         let op = ctx.children[0]
-        this.valueStack.push(arith.calc1(op,left))
+        this.valueStack.push(arith.calc1(op, left))
     }
     exitPrefixOp(ctx) {
-        let left=this.valueStack.pop()
-        let op = ctx.children[0]
-        this.valueStack.push(arith.calc1(op,left))
+        this.exitUnaryMinus(ctx)
     }
 
     exitPlusMinus(ctx) {
@@ -75,7 +74,6 @@ export default class AsmListener extends K2Asm6502ParserListener {
     // PSEUDO OPCODES
 
     exitByte(ctx) {
-//        this.valueStack.forEach(v => this.emitter.emitDNCByte(v))
         this.valueStack.forEach(v => this.emitter.emit8(v))
         this.valueStack = []
     }
@@ -97,25 +95,20 @@ export default class AsmListener extends K2Asm6502ParserListener {
     }
 
     // LABELS
-    
+
     exitIdentifier(ctx) {
         let name = ctx.children[0].getText()
-        let value = this.currentScope.getVal(name)
-        if (value == null) {
-            value = DNCNumber.parse(142) //doesnt matter, any valid value
-        }
+        let value = this.currentScope.getVal(name) ?? DNCNumber.parse(142) //doesnt matter, any valid value
         this.valueStack.push(value)
     }
 
     exitDot(ctx) {
         let allIds = ctx.ID().map(e => e.getText())
-        let value = this.currentScope.getVal(allIds)
-        if (value == null) value = DNCNumber.parse(143) // doesnt matter
-
+        let value = this.currentScope.getVal(allIds) ?? DNCNumber.parse(143) //doesnt matter
         this.valueStack.push(value)
     }
 
-    
+
     exitLabel(ctx) {
         let name = ctx.ID().getText()
         let value = this.emitter.getPc()
@@ -251,37 +244,33 @@ export default class AsmListener extends K2Asm6502ParserListener {
     // FUNCTIONS
 
     enterScriptExpression(ctx) {
-        this.doEncode=false
+        this.doEncode = false
     }
     exitScriptExpression(ctx) {
-        this.doEncode=true
-        let name=ctx.children[0].getText()
-        let argc=(ctx.children[2].children.length+1)/2
-        let args=[]//new DNCList()
-        while(argc>0) {
-            //args.list[--argc]=this.valueStack.pop()//args.push(this.valueStack.pop())
-            args[--argc]=this.valueStack.pop()//args.push(this.valueStack.pop())
+        this.doEncode = true
+        let name = ctx.children[0].getText()
+        let argc
+        if (ctx.children[2].children) {
+            argc = (ctx.children[2].children.length + 1) / 2
         }
-        this.functionCall(name,args)
+        else {
+            argc=0
+        }
+        let args = []
+        while (argc > 0) {
+            args[--argc] = this.valueStack.pop()
+        }
+        this.functionCall(name, args)
     }
-    functionCall(name,args) {
-        //console.log(`calling ${name}(${args.toString()})`)
-        let result=this.script.call(name,args)
-        if(typeof result =="string") {
-            this.valueStack.push(result)
-            return
-        }
-        if(typeof result == "number") {
-            this.valueStack.push(new DNCNumber(8,result)) //TODO
-            return
-        }
-            //console.log("result=",result)
-            throw Error("implement me",typeof result)
+    functionCall(name, args) {
+        let value=mapper.toDNC(this.script.call(name,args))
+        if(value==undefined) throw Error("mapper returned undefined!")
+        this.valueStack.push(value)
     }
 
     exitEmitblock(ctx) {
-        let text=ctx.children[1].getText()
-        text=text.substring(0,text.length-4) //.end
+        let text = ctx.children[1].getText()
+        text = text.substring(0, text.length - 4) //.end
         this.script.require(text)
         // let result=this.script.execute(text)
         // if(result!=undefined) {

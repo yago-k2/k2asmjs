@@ -8,8 +8,7 @@ export default class DNCNumber {
 
     constructor(...args) {
         if (args.length < 2) {
-            return new DNCNumber(DNCNumber.calcBits(args),args)
-         //   throw Error("implement me")
+            return new DNCNumber(DNCNumber.calcBits(args[0]),args[0])
         }
         this.bits = args[0]
         if (typeof args[1] == "number") this.val = args[1]
@@ -56,6 +55,12 @@ export default class DNCNumber {
     }
 
     static calcBits(arg) {
+        if(arg instanceof Array) {
+            throw Error("why array??")
+        }
+        if(arg instanceof DNCNumber) {
+            throw Error("how strange")
+        }
         if (typeof arg == "number") {
             if (arg < -128 || arg > 255) return 16
             else return 8
@@ -63,8 +68,8 @@ export default class DNCNumber {
         if (typeof arg == "string") {
             throw Error("implement me")
         }
-        
-        throw Error("polymorph error"+typeof arg)
+        console.log("arg=",arg)
+        throw Error("polymorph error"+(typeof arg)+" "+arg)
     }
 
     static parse(string) {

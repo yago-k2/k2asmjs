@@ -10,6 +10,13 @@ export default class SymbolTable {
     }
 
     parseAssignment(source) {
+        if(!source) return
+        if(source instanceof Array) {
+            for(let d of source) {
+                this.parseAssignment(d)
+            }
+            return
+        }
         let parser=new AssignParser(this)
         parser.parse(source)
     }

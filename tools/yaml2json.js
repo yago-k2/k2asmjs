@@ -11,8 +11,7 @@ try {
       delete entry.name
       result[name]=entry
   }
-//  console.log(result)
-  fs.writeFileSync("../src/data/6502opcodes.js","export default "+JSON.stringify(result))
+  fs.writeFileSync("../src/data/6502opcodes.js","export default "+JSON.stringify(result,null,8))
 } catch (e) {
   console.log(e);
 }
