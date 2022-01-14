@@ -1,4 +1,6 @@
 import AssignParser from "./AssignParser.js"
+import DNCMemory from "./memory/DNCMemory.js"
+import DNCMap from "./types/DNCMap.js"
 
 export default class SymbolTable {
     #symbolTable
@@ -44,10 +46,18 @@ export default class SymbolTable {
         }
     }
 
+    //TODO
+    convertToMap(name) {
+        let value=this.#symbolTable.getVal(name)
+        let map=new DNCMap()
+        map.pc=value
+        this.reput(name,map)
+    }
+
     reput(name,val,exp) {
         this.#symbolTable.set(name,{val:val,exp,pass:this.#pass})
     }
-    
+
     getVal(name) {
         return this.#symbolTable.get(name).val
     }

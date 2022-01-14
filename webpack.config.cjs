@@ -1,4 +1,3 @@
-// Generated using webpack-cli https://github.com/webpack/webpack-cli
 
 const path = require("path");
 
@@ -13,11 +12,17 @@ const config = {
   output: {
     path: path.resolve(__dirname, "dist"),
   },
-//  node: { fs: "empty" },
-//  target: "node",
-  target: ["web","es2020"],
-//  target: "browserslist:modern",
-//  type: "module",
+  //  node: { fs: "empty" },
+  //  target: "node",
+  target: ["web", "es2020"],
+  //  target: "browserslist:modern",
+  //  type: "module",
+  performance: {
+    // This is an app, not a traditional web page. Let's relax the size
+    // warnings.
+    maxAssetSize: (2 * 1048576),
+    maxEntrypointSize: (2 * 1048576),
+  },
   plugins: [
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
@@ -46,16 +51,16 @@ const config = {
   },
   optimization: {
     minimize: true,
-//    usedExports: true,
+    //    usedExports: true,
     minimizer: [new TerserPlugin({
-	minify: TerserPlugin.esbuildMinify,
-	terserOptions: {
-//	  minifyOptions: {removeComments: true},
-          legalComments: "none",
-          module: true,
-        }
-	//terserOptions: {format: {comments:false}}
-  })]
+      minify: TerserPlugin.esbuildMinify,
+      terserOptions: {
+        //	  minifyOptions: {removeComments: true},
+        legalComments: "none",
+        module: true,
+      }
+      //terserOptions: {format: {comments:false}}
+    })]
   }
 };
 
