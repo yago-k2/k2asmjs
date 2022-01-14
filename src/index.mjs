@@ -7,7 +7,7 @@ if (typeof window !== "undefined") {
   let $textarea = document.querySelector("textarea")
   let $output = document.querySelector("output")
   let $button = document.querySelector("button")
-  $button.onclick = (e) => {
+  $button.onclick = () => {
     asm.assemble($textarea.value + "\n")
     $output.innerText = asm.getObject() //maybe format as hex?
   }

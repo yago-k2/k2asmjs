@@ -1,5 +1,4 @@
 import AssignParser from "./AssignParser.js"
-import DNCMemory from "./memory/DNCMemory.js"
 import DNCMap from "./types/DNCMap.js"
 
 export default class SymbolTable {

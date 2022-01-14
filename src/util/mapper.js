@@ -25,6 +25,6 @@ export default class Mapper {
     }
 
     static toJS(dncvalue) {
-
+        return dncvalue.val
     }
 }

@@ -7,7 +7,6 @@ import DNCMap from "./types/DNCMap.js"
 import DNCList from "./types/DNCList.js"
 import Script from "./Script.js"
 import mapper from "./util/mapper.js"
-import DNCMemory from "./memory/DNCMemory.js"
 
 export default class AsmListener extends K2Asm6502ParserListener {
     #currentValue
@@ -45,21 +44,21 @@ export default class AsmListener extends K2Asm6502ParserListener {
         this.#currentValue = DNCNumber.parse(ctx.HEX().getText())
     }
     // MAP
-    enterMap(ctx) {
+    enterMap() {
         this.currentMap = new DNCMap()
     }
-    exitMap(ctx) {
+    exitMap() {
         this.#currentValue = this.currentMap
     }
     exitPair(ctx) {
         this.currentMap.put(ctx.key().getText(), this.valueStack.pop())
     }
     // ARRAY
-    enterArray(ctx) {
+    enterArray() {
         this.currentList = new DNCList()
         this.insideList = true
     }
-    exitArray(ctx) {
+    exitArray() {
         this.#currentValue = this.currentList
         this.insideList = false
     }
@@ -78,7 +77,7 @@ export default class AsmListener extends K2Asm6502ParserListener {
         this.#currentValue=new DNCNumber( (minutes*60+seconds) * this.options.ticks + +frames)
     }
 
-    exitNumber(ctx) {
+    exitNumber() {
         if (this.insideList) {
             this.currentList.push(this.#currentValue)
         }
@@ -109,19 +108,19 @@ export default class AsmListener extends K2Asm6502ParserListener {
 
     // PSEUDO OPCODES
 
-    exitByte(ctx) {
+    exitByte() {
         this.valueStack.forEach(v => this.emitter.emit8(v))
         this.valueStack = []
     }
 
-    exitWord(ctx) {
+    exitWord() {
         this.valueStack.forEach(v => {
             this.emitter.emitDNCWord(v)
         })
         this.valueStack = []
     }
 
-    exitOrg(ctx) {
+    exitOrg() {
         if (this.valueStack.length == 2) {
             let la = this.valueStack.pop()
             this.emitter.setPc(la)
@@ -152,13 +151,13 @@ export default class AsmListener extends K2Asm6502ParserListener {
         this.currentScope.put(name, value, false)
     }
 
-    exitLocalModifier(ctx) {
+    exitLocalModifier() {
         this.currentModifier = "local"
     }
-    exitGlobalModifier(ctx) { this.currentModifier = "global" }
-    exitExportModifier(ctx) { this.currentModifier = "export" }
+    exitGlobalModifier() { this.currentModifier = "global" }
+    exitExportModifier() { this.currentModifier = "export" }
 
-    enterSimpleAssign(ctx) { this.currentModifier = "none" }
+    enterSimpleAssign() { this.currentModifier = "none" }
     exitSimpleAssign(ctx) {
         let exp = false
         let value = this.valueStack.pop()
@@ -178,7 +177,7 @@ export default class AsmListener extends K2Asm6502ParserListener {
                     return
                 }
                 if(nrComponents==3) {
-                    throw Error("TODO recursion into map/nr")
+//                    throw Error("TODO recursion into map/nr")
                     let map2=map.getVal(ctx.ID()[1])
                     let rmap=new DNCMap()
                     rmap.pc=map2
@@ -200,7 +199,6 @@ export default class AsmListener extends K2Asm6502ParserListener {
                 return
                 //throw Error("implement number to map")
             }
-            throw Error(`implement me: ${name}.${ctx.ID()[1]}=${map}`)
             //if its not a map, doubledefinition error
         }
         else {
@@ -220,14 +218,14 @@ export default class AsmListener extends K2Asm6502ParserListener {
 
     // SCOPES
 
-    enterUnnamedScope(ctx) {
+    enterUnnamedScope() {
         let scope = new Scope(this.currentScope, "", new SymbolTable())
         scope.pc = this.emitter.getPc()
         this.currentScope.addChildren(scope)
         this.currentScope = scope
         this.currentScope.put("_cont", this.emitter.getPc(), false)
     }
-    exitUnnamedScope(ctx) {
+    exitUnnamedScope() {
         this.currentScope.put("_break", this.emitter.getPc(), false)
         this.currentScope = this.currentScope.parent
     }
@@ -240,7 +238,7 @@ export default class AsmListener extends K2Asm6502ParserListener {
         this.currentScope = scope
         this.currentScope.put("_cont", this.emitter.getPc(), false)
     }
-    exitNamedScope(ctx) {
+    exitNamedScope() {
         let pc = this.emitter.getPc()
         this.currentScope.put("_break", pc, false)
         this.currentScope.put("_end", pc, false)
@@ -288,7 +286,7 @@ export default class AsmListener extends K2Asm6502ParserListener {
 
     // FUNCTIONS
 
-    enterScriptExpression(ctx) {
+    enterScriptExpression() {
         this.doEncode = false
     }
     exitScriptExpression(ctx) {
